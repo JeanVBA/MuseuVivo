@@ -1,0 +1,38 @@
+Obra:
+	Só pode ser cadastrado se o tipo da obra for "Escultura" ou "Pintura"
+	Não pode ser cadastrado sem autor
+	Não pode ser cadastrado sem tem uma localização no museu
+Pintura:
+	Pintura não pode ser cadastrada sem identificador da obra
+	Pintura não pode ser cadastrada caso a obra não seja do tipo 'Pintura'
+	Pintura não pode ser cadastrada sem ter técnica preenchida
+Escultura:
+	Pintura não pode ser cadastrada sem identificador da obra
+	Pintura não pode ser cadastrada caso a obra não seja do tipo 'Escultura'
+	Pintura não pode ser cadastrada sem ter material preenchido
+Autor:
+	Autor não pode ser salvo sem ter nome
+empréstimo:
+	Não pode ser cadastrado sem ter uma obra
+	Não pode ter uma data de retorno antes da data do dia atual
+	Não pode ser cadastrado sem ter instituição preenchida
+Exposição:
+	Não pode ser cadastrada sem titulo
+	Não pode ter uma data de termino antes da data do dia atual
+Guia:
+	Guia não pode ser salvo sem ter nome
+Ingresso:
+	Não pode ser cadastrado sem ter visitante associado
+	Não pode ser cadastrado sem ter o tipo (Silver, Gold, Premium)
+	Não pode ser cadastrado sem ter visitaGuiada associada
+Localização:
+	Localização não pode ser salvo sem ter nome
+Segurança:
+	Segurança não pode ser salvo sem ter nome
+	Não pode ser cadastrado sem ter uma localização associada
+VisitaGuiada:
+	Não pode ser cadastrada sem a data da visita
+	Não pode ser cadastrado sem ter o horário
+	Não pode ser cadastrado sem ter um guia associado
+Visitante:
+	Visitante não pode ser salvo sem ter nome
