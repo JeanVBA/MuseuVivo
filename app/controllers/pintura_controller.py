@@ -25,6 +25,8 @@ def create_pintura():
     if pintura.obra_id is None:
         return error_response("Para cadastrar a pintura, é necessario o identificador da obra", 400)
     obra = Obra.query.get(pintura.obra_id)
+    if obra is None:
+        return error_response("Obra não localizada", 404)
     if obra.tipo != 'Pintura':
         return error_response("Para cadastrar pintura, é necessario que a obra seja do tipo 'Pintura'.", 400)
     if pintura.tecnica is None:

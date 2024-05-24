@@ -45,6 +45,8 @@ def update_escultura(id):
     if escultura.obra_id is None:
         return error_response("Para cadastrar a escultura, é necessario o identificador da obra", 400)
     obra = Obra.query.get(escultura.obra_id)
+    if obra is None:
+        return error_response("Obra não localizada", 404)
     if obra.tipo != 'Pintura':
         return error_response("Para cadastrar escultura, é necessario que a obra seja do tipo 'Escultura'.", 400)
     if escultura.tecnica is None:

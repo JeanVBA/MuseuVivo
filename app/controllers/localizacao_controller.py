@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from app.models.localizacao_model import Localizacao
-from app.views.localizacao_view import localizacao_to_dict
+from app.views.localizacao_view import localizacao_to_dict, error_response
 from app.extentions import db
 
 localizacao_bp = Blueprint('localizacao_bp', __name__,url_prefix='/localizacao')
@@ -21,6 +21,8 @@ def create_localizacao():
     localizacao = Localizacao(
         nome=data['nome']
     )
+    if localizacao.nome is None:
+        return error_response("Campo nome deve ser preenchido", 400)
     db.session.add(localizacao)
     db.session.commit()
     return jsonify(localizacao_to_dict(localizacao)), 201
@@ -30,6 +32,8 @@ def update_localizacao(id):
     localizacao = Localizacao.query.get_or_404(id)
     data = request.get_json()
     localizacao.nome = data['nome']
+    if localizacao.nome is None:
+        return error_response("Campo nome deve ser preenchido", 400)
     db.session.commit()
     return jsonify(localizacao_to_dict(localizacao)), 200
 

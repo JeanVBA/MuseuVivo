@@ -1,13 +1,13 @@
 from flask import jsonify
 
 
-def visitasGuiadas_to_dict(visitas_guiadas):
+def visitaGuiada_to_dict(visitas_guiadas):
     return {
         'id': visitas_guiadas.id,
         'grupo': visitas_guiadas.grupo,
         'nombre': visitas_guiadas.nombre,
         'data_visita': visitas_guiadas.data_visita,
-        'horario': visitas_guiadas.horario,
+        'horario': visitas_guiadas.horario.strftime('%H:%M:%S'),
         'guia': {
             'nome': visitas_guiadas.guia.nome,
         }
