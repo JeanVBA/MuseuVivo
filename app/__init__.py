@@ -1,10 +1,9 @@
 from flask import Flask
 from app.extentions import db, migrate
 from app.config import Config
-from app.controllers import (autor_controller, obra_controller, pintura_controller, escultura_controller,
-                             localizacao_controller, emprestimo_controller, exposicao_controller, guia_controller,
-                             ingresso_controller, seguranca_controller, visitaGuiada_controller, visitante_controller,
-                             obraExposicao_controller)
+from app.routes import (autor_route, emprestimo_route, obra_route, instituicao_route, obraExposicao_route,
+                        exposicao_route, guia_route, visitante_route, seguranca_route, localizacao_route,
+                        escultura_route, pintura_route, ingresso_route, visitaGuiada_route)
 
 
 def create_app():
@@ -14,18 +13,19 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    app.register_blueprint(autor_controller.autor_bp)
-    app.register_blueprint(localizacao_controller.localizacao_bp)
-    app.register_blueprint(obra_controller.obra_bp)
-    app.register_blueprint(escultura_controller.escultura_bp)
-    app.register_blueprint(pintura_controller.pintura_bp)
-    app.register_blueprint(emprestimo_controller.emprestimo_bp)
-    app.register_blueprint(exposicao_controller.exposicao_bp)
-    app.register_blueprint(ingresso_controller.ingresso_bp)
-    app.register_blueprint(seguranca_controller.seguranca_bp)
-    app.register_blueprint(visitaGuiada_controller.visitaGuiada_bp)
-    app.register_blueprint(visitante_controller.visitante_bp)
-    app.register_blueprint(obraExposicao_controller.obraExposicao_bp)
-    app.register_blueprint(guia_controller.guia_bp)
+    app.register_blueprint(autor_route.autor_bp)
+    app.register_blueprint(emprestimo_route.emprestimo_bp)
+    app.register_blueprint(obra_route.obra_bp)
+    app.register_blueprint(instituicao_route.instituicao_bp)
+    app.register_blueprint(obraExposicao_route.obraExposicao_bp)
+    app.register_blueprint(exposicao_route.exposicao_bp)
+    app.register_blueprint(guia_route.guia_bp)
+    app.register_blueprint(visitante_route.visitante_bp)
+    app.register_blueprint(seguranca_route.seguranca_bp)
+    app.register_blueprint(localizacao_route.localizacao_bp)
+    app.register_blueprint(escultura_route.escultura_bp)
+    app.register_blueprint(pintura_route.pintura_bp)
+    app.register_blueprint(ingresso_route.ingresso_bp)
+    app.register_blueprint(visitaGuiada_route.visitaGuiada_bp)
 
     return app

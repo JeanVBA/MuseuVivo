@@ -11,6 +11,10 @@ CREATE TABLE Autores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL
 );
+CREATE TABLE Instituicoes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL
+);
 
 -- Tabela para obras de arte
 CREATE TABLE Obras (
@@ -55,12 +59,12 @@ CREATE TABLE Exposicoes (
 CREATE TABLE Emprestimos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     obra_id INT,
+    instituicao_id INT,
     data_emprestimo DATE,
     data_retorno DATE,
-    instituicao_solicitante VARCHAR(255),
-    FOREIGN KEY (obra_id) REFERENCES Obras(id)
+    FOREIGN KEY (obra_id) REFERENCES Obras(id),
+    FOREIGN KEY (instituicao_id) REFERENCES Instituicoes(id)
 );
-
 -- Tabela para visitantes
 CREATE TABLE Visitantes (
     id INT PRIMARY KEY AUTO_INCREMENT,

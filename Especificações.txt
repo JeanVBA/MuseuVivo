@@ -21,14 +21,19 @@ Exposição:
 	Não pode ter uma data de termino antes da data do dia atual
 Guia:
 	Guia não pode ser salvo sem ter nome
+	Email tem que ser valido
+	Telefone tem que está na norma internacional
 Ingresso:
 	Não pode ser cadastrado sem ter visitante associado
 	Não pode ser cadastrado sem ter o tipo (Silver, Gold, Premium)
 	Não pode ser cadastrado sem ter visitaGuiada associada
+	A data da visita tem que ser igual a visitaGuiada
 Localização:
 	Localização não pode ser salvo sem ter nome
 Segurança:
 	Segurança não pode ser salvo sem ter nome
+	Email tem que ser valido
+	Telefone tem que está na norma internacional
 	Não pode ser cadastrado sem ter uma localização associada
 VisitaGuiada:
 	Não pode ser cadastrada sem a data da visita
@@ -36,3 +41,5 @@ VisitaGuiada:
 	Não pode ser cadastrado sem ter um guia associado
 Visitante:
 	Visitante não pode ser salvo sem ter nome
+	Email tem que ser valido
+	Telefone tem que está na norma internacional

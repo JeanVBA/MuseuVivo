@@ -7,3 +7,4 @@ class Exposicao(db.Model):
     descricao = db.Column(db.Text)
     data_inicio = db.Column(db.Date)
     data_termino = db.Column(db.Date)
+    obras_exposicoes = db.relationship('ObraExposicao', back_populates='exposicao')
