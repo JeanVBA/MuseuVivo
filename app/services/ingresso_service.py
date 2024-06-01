@@ -15,12 +15,12 @@ class IngressoService(BaseService):
             'tipo': ingresso.tipo,
             'data_visita': ingresso.data_visita,
             'visitante': {
-                'nome': ingresso.visitante.nome
+                'nome': ingresso.visitante.nome if ingresso.visitante else None,
             },
             'visita_guiada': {
-                'grupo': ingresso.visita_guiada.grupo,
+                'grupo': ingresso.visita_guiada.grupo if ingresso.visita_guiada else None,
                 'guia': {
-                    'nome': ingresso.visita_guiada.guia.nome
+                    'nome': ingresso.visita_guiada.guia.nome if ingresso.visita_guiada.guia else None
                 }
             }
         }

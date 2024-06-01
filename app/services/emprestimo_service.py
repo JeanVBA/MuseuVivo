@@ -83,3 +83,6 @@ class EmprestimoService(BaseService):
             return self.to_dict(emprestimo)
         except Exception as e:
             return self.error_response("Emprestimo não encontrado", 404)
+
+    def fetch_by_instituicao_nome(self, instituicao_nome):
+        return [self.to_dict(instance) for instance in self.repository.get_by_instituicao_nome(instituicao_nome)]

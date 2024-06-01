@@ -14,8 +14,8 @@ class ObraExposicaoService(BaseService):
         return {
             'obra_id': instance.obra_id,
             'obra_nome': instance.obra.nome,
-            'exposicao_id': instance.exposicao_id,
-            'exposicao_titulo': instance.exposicao.titulo
+            'exposicao_id': instance.exposicao_id if instance.exposicao_id else None,
+            'exposicao_titulo': instance.exposicao.titulo if instance.exposicao.titulo else None,
         }
 
     def exposicoes_to_dict(self, instance):

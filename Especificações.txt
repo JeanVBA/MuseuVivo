@@ -15,7 +15,9 @@ Autor:
 empréstimo:
 	Não pode ser cadastrado sem ter uma obra
 	Não pode ter uma data de retorno antes da data do dia atual
-	Não pode ser cadastrado sem ter instituição preenchida
+	Não pode ser cadastrado sem ter instituição associada
+Instituição:
+    Não pode ser cadastrada sem ter nome
 Exposição:
 	Não pode ser cadastrada sem titulo
 	Não pode ter uma data de termino antes da data do dia atual

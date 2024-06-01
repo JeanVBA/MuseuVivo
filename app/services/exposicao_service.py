@@ -59,6 +59,11 @@ class ExposicaoService(BaseService):
         except Exception as e:
             return self.error_response("Exposicao não encontrado", 404)
 
+    def fetch_by_title(self, titulo):
+        result = self.repository.get_by_title(titulo=titulo)
+        if result is not None:
+            return self.to_dict(result)
+        return self.error_response("Exposicao não encontrada", 404)
 def exposicao_to_dict(exposicao):
     return {
         'titulo': exposicao.titulo,

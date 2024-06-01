@@ -76,3 +76,6 @@ class EsculturaService(BaseService):
             return self.to_dict(instance)
         except Exception as e:
             return self.error_response("Escultura não encontrada", 404)
+
+    def fetch_by_obra_nome(self, obra_nome):
+        return [self.to_dict(instance) for instance in self.repository.get_by_obra_nome(obra_nome)]

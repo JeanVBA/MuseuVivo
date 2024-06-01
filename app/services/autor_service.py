@@ -39,3 +39,9 @@ class AutorService(BaseService):
             self.repository.delete(autor)
         except Exception as e:
             return self.error_response("Autor não encontrado", 404)
+
+    def fetch_by_name(self, nome):
+        autor = self.repository.get_by_name(nome)
+        if autor is not None:
+            return self.to_dict(autor)
+        return self.error_response("Autor não encontrado", 404)

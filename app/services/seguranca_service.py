@@ -8,12 +8,12 @@ class SegurancaService(BaseService):
         super().__init__(SegurancaRepository())
 
     def to_dict(self, seguranca):
-        return {
+        return  {
             'id': seguranca.id,
             'nome': seguranca.nome,
             'email': seguranca.email,
             'telefone': seguranca.telefone,
-            'localizacao': seguranca.localizacao.nome,
+            'localizacao': seguranca.localizacao.nome if seguranca.localizacao else None
         }
 
     def create(self, data):
@@ -80,3 +80,9 @@ class SegurancaService(BaseService):
             self.repository.delete(data)
         except Exception as e:
             return self.error_response("Seguranca não encontrado", 404)
+
+    def fetch_by_name(self, nome):
+        result = self.repository.get_by_name(nome)
+        if result is not None:
+            return self.to_dict(result)
+        return self.error_response("Seguranca não encontrado", 404)

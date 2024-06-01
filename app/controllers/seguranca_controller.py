@@ -1,34 +1,13 @@
-from flask import request, jsonify
+from flask import jsonify
+
 from app.services.seguranca_service import SegurancaService
+from app.controllers.base_controller import base_controller
 
 seguranca_service = SegurancaService()
+seguranca_controller = base_controller(seguranca_service)
 
-def get_segurancas():
-    results = seguranca_service.fetch_all()
-    return jsonify(results)
-
-def get_seguranca(id):
-    result = seguranca_service.fetch_by_id(id)
+def get_by_name(nome):
+    result = seguranca_service.fetch_by_name(nome)
     if isinstance(result, dict):
         return jsonify(result)
-    return result
-
-def create_seguranca():
-    data = request.get_json()
-    result = seguranca_service.create(data)
-    if isinstance(result, dict):
-        return jsonify(result), 201
-    return result
-
-def update_seguranca(id):
-    data = request.get_json()
-    result = seguranca_service.update(id, data)
-    if isinstance(result, dict):
-        return jsonify(result), 200
-    return result
-
-def delete_seguranca(id):
-    result = seguranca_service.delete(id)
-    if result is None:
-        return '', 204
     return result

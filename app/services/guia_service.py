@@ -66,3 +66,9 @@ class GuiaService(BaseService):
             self.repository.delete(data)
         except Exception as e:
             return self.error_response("Guia não encontrado", 404)
+
+    def fetch_by_name(self, nome):
+        result = self.repository.get_by_name(nome)
+        if result is not None:
+            return self.to_dict(result)
+        return self.error_response("Guia não encontrado", 404)

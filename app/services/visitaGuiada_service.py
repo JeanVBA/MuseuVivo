@@ -15,7 +15,7 @@ class VisitaGuiadaService(BaseService):
             'data_visita': visitas_guiadas.data_visita,
             'horario': visitas_guiadas.horario.strftime('%H:%M:%S'),
             'guia': {
-                'nome': visitas_guiadas.guia.nome,
+                'nome': visitas_guiadas.guia.nome if visitas_guiadas.guia is not None else None,
             }
         }
 

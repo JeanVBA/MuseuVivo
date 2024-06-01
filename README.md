@@ -9,6 +9,3 @@
 	##python.exe -m pip install --upgrade pip
 #Ativar o servidor:
 	##flask run
-
-@fazer validação de data do ingresso com visita_guiada
-@fazer validação do horario do museu com visitaGuiada

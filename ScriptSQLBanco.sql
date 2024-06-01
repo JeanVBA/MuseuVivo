@@ -1,122 +1,137 @@
-CREATE DATABASE MuseuVivo;
-USE MuseuVivo;
-
--- Tabela para localizações
-CREATE TABLE Localizacoes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL
-);
--- Tabela para Auto
-CREATE TABLE Autores (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL
-);
-CREATE TABLE Instituicoes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL
+-- Table structure for table `instituicoes`
+DROP TABLE IF EXISTS instituicoes;
+CREATE TABLE instituicoes (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL
 );
 
--- Tabela para obras de arte
-CREATE TABLE Obras (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    descricao TEXT,
-    data_criacao DATE,
-    autor_id INT,
-    localizacao_id INT,
-    tipo VARCHAR(50),
-    FOREIGN KEY (autor_id) REFERENCES Autores(id),
-    FOREIGN KEY (localizacao_id) REFERENCES Localizacoes(id)
+-- Table structure for table `localizacoes`
+DROP TABLE IF EXISTS localizacoes;
+CREATE TABLE localizacoes (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL
 );
 
-
--- Tabela para esculturas (herdando de ObrasArte)
-CREATE TABLE Esculturas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    obra_id INT,
-    material VARCHAR(100),
-    peso DECIMAL(10, 2),
-    FOREIGN KEY (obra_id) REFERENCES Obras(id) ON DELETE CASCADE
+-- Table structure for table `guias`
+DROP TABLE IF EXISTS guias;
+CREATE TABLE guias (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  telefone VARCHAR(20)
 );
 
-CREATE TABLE Pinturas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    obra_id INT,
-    tecnica VARCHAR(100),
-    FOREIGN KEY (obra_id) REFERENCES Obras(id) ON DELETE CASCADE
+-- Table structure for table `visitas_guiadas`
+DROP TABLE IF EXISTS visitas_guiadas;
+CREATE TABLE visitas_guiadas (
+  id SERIAL PRIMARY KEY,
+  grupo VARCHAR(255),
+  data_visita DATE,
+  horario TIME,
+  guia_responsavel_id INTEGER,
+  FOREIGN KEY (guia_responsavel_id) REFERENCES guias(id)
 );
 
--- Tabela para exposições temporárias
-CREATE TABLE Exposicoes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    titulo VARCHAR(255) NOT NULL,
-    descricao TEXT,
-    data_inicio DATE,
-    data_termino DATE
+-- Table structure for table `pinturas`
+DROP TABLE IF EXISTS pinturas;
+CREATE TABLE pinturas (
+  id SERIAL PRIMARY KEY,
+  obra_id INTEGER,
+  tecnica VARCHAR(100),
+  FOREIGN KEY (obra_id) REFERENCES obras(id) ON DELETE CASCADE
 );
 
--- Tabela para empréstimos de obras de arte
-CREATE TABLE Emprestimos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    obra_id INT,
-    instituicao_id INT,
-    data_emprestimo DATE,
-    data_retorno DATE,
-    FOREIGN KEY (obra_id) REFERENCES Obras(id),
-    FOREIGN KEY (instituicao_id) REFERENCES Instituicoes(id)
-);
--- Tabela para visitantes
-CREATE TABLE Visitantes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    telefone VARCHAR(20)
+-- Table structure for table `emprestimos`
+DROP TABLE IF EXISTS emprestimos;
+CREATE TABLE emprestimos (
+  id SERIAL PRIMARY KEY,
+  obra_id INTEGER,
+  data_emprestimo DATE,
+  data_retorno DATE,
+  instituicao_id INTEGER,
+  FOREIGN KEY (obra_id) REFERENCES obras(id),
+  FOREIGN KEY (instituicao_id) REFERENCES instituicoes(id)
 );
 
--- Tabela para ingressos
-CREATE TABLE Ingressos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    visitante_id INT,
-    tipo VARCHAR(50),
-    data_visita DATE,
-    visita_guiada_id INT,
-    FOREIGN KEY (visitante_id) REFERENCES Visitantes(id),
-    FOREIGN KEY (visita_guiada_id) REFERENCES Visitas_Guiadas(id)
+-- Table structure for table `esculturas`
+DROP TABLE IF EXISTS esculturas;
+CREATE TABLE esculturas (
+  id SERIAL PRIMARY KEY,
+  obra_id INTEGER,
+  material VARCHAR(100),
+  peso DECIMAL(10, 2),
+  FOREIGN KEY (obra_id) REFERENCES obras(id) ON DELETE CASCADE
 );
 
--- Tabela para visitas guiadas
-CREATE TABLE Visitas_Guiadas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    grupo VARCHAR(255),
-    data_visita DATE,
-    horario TIME,
-    guia_responsavel_id INT,
-    FOREIGN KEY (guia_responsavel_id) REFERENCES Guias(id)
+-- Table structure for table `obras_exposicoes`
+DROP TABLE IF EXISTS obras_exposicoes;
+CREATE TABLE obras_exposicoes (
+  obra_id INTEGER,
+  exposicao_id INTEGER,
+  PRIMARY KEY (obra_id, exposicao_id),
+  FOREIGN KEY (exposicao_id) REFERENCES exposicoes(id),
+  FOREIGN KEY (obra_id) REFERENCES obras(id)
 );
 
--- Tabela para guias responsáveis
-CREATE TABLE Guias (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    telefone VARCHAR(20)
+-- Table structure for table `exposicoes`
+DROP TABLE IF EXISTS exposicoes;
+CREATE TABLE exposicoes (
+  id SERIAL PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  descricao TEXT,
+  data_inicio DATE,
+  data_termino DATE
 );
 
--- Tabela de associação entre ObrasArte e Exposicoes (Many-to-Many)
-CREATE TABLE Obras_Exposicoes (
-    obra_id INT,
-    exposicao_id INT,
-    PRIMARY KEY (obra_id, exposicao_id),
-    FOREIGN KEY (obra_id) REFERENCES Obras(id),
-    FOREIGN KEY (exposicao_id) REFERENCES Exposicoes(id)
+-- Table structure for table `autores`
+DROP TABLE IF EXISTS autores;
+CREATE TABLE autores (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL
 );
 
--- Tabela para seguranças
-CREATE TABLE Segurancas (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    telefone VARCHAR(20),
-    localizacao_id INT,
-    FOREIGN KEY (localizacao_id) REFERENCES Localizacoes(id)
+-- Table structure for table `segurancas`
+DROP TABLE IF EXISTS segurancas;
+CREATE TABLE segurancas (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  telefone VARCHAR(20),
+  localizacao_id INTEGER,
+  FOREIGN KEY (localizacao_id) REFERENCES localizacoes(id)
+);
+
+-- Table structure for table `ingressos`
+DROP TABLE IF EXISTS ingressos;
+CREATE TABLE ingressos (
+  id SERIAL PRIMARY KEY,
+  visitante_id INTEGER,
+  tipo VARCHAR(50),
+  data_visita DATE,
+  visita_guiada_id INTEGER,
+  FOREIGN KEY (visita_guiada_id) REFERENCES visitas_guiadas(id),
+  FOREIGN KEY (visitante_id) REFERENCES visitantes(id)
+);
+
+-- Table structure for table `obras`
+DROP TABLE IF EXISTS obras;
+CREATE TABLE obras (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  descricao TEXT,
+  data_criacao DATE,
+  autor_id INTEGER,
+  localizacao_id INTEGER,
+  tipo VARCHAR(50),
+  FOREIGN KEY (autor_id) REFERENCES autores(id),
+  FOREIGN KEY (localizacao_id) REFERENCES localizacoes(id)
+);
+
+-- Table structure for table `visitantes`
+DROP TABLE IF EXISTS visitantes;
+CREATE TABLE visitantes (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  email VARCHAR(255),
+  telefone VARCHAR(20)
 );
