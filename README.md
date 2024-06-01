@@ -1,3 +1,5 @@
+#Apagar ambiente virtual existente:
+	##rmdir /s /q venv
 #Criar ambiente virtual:
 	##python -m venv venv (lembre-se de fazer na pasta do projeto)
 #Ativar o ambiente virtual:
