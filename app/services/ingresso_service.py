@@ -1,3 +1,5 @@
+from app.models.guia_model import Guia
+from app.models.ingresso_model import Ingresso
 from app.models.visitaGuiada_model import VisitaGuiada
 from app.models.visitante_model import Visitante
 from app.services.base_service import BaseService
@@ -87,3 +89,7 @@ class IngressoService(BaseService):
             return self.to_dict(instance)
         except Exception as e:
             return self.error_response("Ingresso não encontrado", 404)
+
+    def fetch_by_args(self, tipo=None, visitante_nome=None):
+        results = self.repository.get_by_args(tipo, visitante_nome)
+        return [self.to_dict(result) for result in results]

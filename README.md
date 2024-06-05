@@ -5,6 +5,8 @@
 	##source venv/bin/activate (Linux ou Mac)
 #Instalar Flask e outros:
 	##pip install flask flask_sqlalchemy flask_migrate pyodbc
+ 	##pip install notebook
+    ##pip install requests
 #Rodar a aplicação primeira vez:
 	##python.exe -m pip install --upgrade pip
 #Ativar o servidor:
