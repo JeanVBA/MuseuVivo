@@ -7,5 +7,5 @@ class GuidedVisit(db.Model):
     group = db.Column(db.String(255))
     visit_date = db.Column(db.Date)
     hours = db.Column(db.Time)
-    responsible_guide_id = db.Column(db.Integer, db.ForeignKey('Guides.id'))
+    responsible_guide_id = db.Column(db.Integer, db.ForeignKey('guides.id'))
     guide = db.relationship('Guide', backref=db.backref('guided_visits', lazy=True))

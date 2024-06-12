@@ -1,3 +1,4 @@
+from app.models.work_of_art_model import WorkOfArt
 from app.repositories.base_repository import BaseRepository
 from app.models.exhibition_model import Exhibition
 
@@ -15,7 +16,7 @@ class ExhibitionRepository(BaseRepository):
         if title:
             query = query.filter(Exhibition.title.ilike(f'%{title}%'))
         if work_of_art_name:
-            query = query.filter(Exhibition.work_of_art.name == work_of_art_name)
+            query = query.join(WorkOfArt).filter(WorkOfArt.name.ilike(f'{work_of_art_name}'))
         return query.all()
     def get_by_title(self, title):
         return Exhibition.query.filter_by(title=title).first()

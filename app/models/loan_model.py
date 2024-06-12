@@ -7,5 +7,6 @@ class Loan(db.Model):
     institution_id = db.Column(db.Integer, db.ForeignKey('institutions.id'))
     loan_date = db.Column(db.Date)
     return_date = db.Column(db.Date)
-    amount_collected = db.Column(db.Float)
+    amount_collected = db.Column(db.Numeric(10, 2), nullable=False)
     work_of_art = db.relationship('WorkOfArt', backref='loans')
+    institution = db.relationship('Institution', backref='loans')

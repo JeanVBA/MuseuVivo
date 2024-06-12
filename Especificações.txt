@@ -1,27 +1,27 @@
-Obra:
+work_of_art:
 	Só pode ser cadastrado se o tipo da obra for "Escultura" ou "Pintura"
 	Não pode ser cadastrado sem autor
 	Não pode ser cadastrado sem tem uma localização no museu
-Pintura:
+painting:
 	Pintura não pode ser cadastrada sem identificador da obra
 	Pintura não pode ser cadastrada caso a obra não seja do tipo 'Pintura'
 	Pintura não pode ser cadastrada sem ter técnica preenchida
-Escultura:
-	Pintura não pode ser cadastrada sem identificador da obra
-	Pintura não pode ser cadastrada caso a obra não seja do tipo 'Escultura'
-	Pintura não pode ser cadastrada sem ter material preenchido
-Autor:
+sculpture:
+	escultura não pode ser cadastrada sem identificador da obra
+	escultura não pode ser cadastrada caso a obra não seja do tipo 'Escultura'
+	escultura não pode ser cadastrada sem ter material preenchido
+author:
 	Autor não pode ser salvo sem ter nome
-empréstimo:
+loan:
 	Não pode ser cadastrado sem ter uma obra
 	Não pode ter uma data de retorno antes da data do dia atual
 	Não pode ser cadastrado sem ter instituição associada
-Instituição:
+institution:
     Não pode ser cadastrada sem ter nome
-Exposição:
+exhibition:
 	Não pode ser cadastrada sem titulo
 	Não pode ter uma data de termino antes da data do dia atual
-Guia:
+guide:
 	Guia não pode ser salvo sem ter nome
 	Email tem que ser valido
 	Telefone tem que está na norma internacional
@@ -30,18 +30,18 @@ Ingresso:
 	Não pode ser cadastrado sem ter o tipo (Silver, Gold, Premium)
 	Não pode ser cadastrado sem ter visitaGuiada associada
 	A data da visita tem que ser igual a visitaGuiada
-Localização:
+location:
 	Localização não pode ser salvo sem ter nome
-Segurança:
+security:
 	Segurança não pode ser salvo sem ter nome
 	Email tem que ser valido
 	Telefone tem que está na norma internacional
 	Não pode ser cadastrado sem ter uma localização associada
-VisitaGuiada:
+guided_visit:
 	Não pode ser cadastrada sem a data da visita
 	Não pode ser cadastrado sem ter o horário
 	Não pode ser cadastrado sem ter um guia associado
-Visitante:
+visitor:
 	Visitante não pode ser salvo sem ter nome
 	Email tem que ser valido
 	Telefone tem que está na norma internacional

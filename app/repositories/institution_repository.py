@@ -2,20 +2,20 @@ from app.repositories.base_repository import BaseRepository
 from app.models.institution_model import Institution
 
 
-class InstituicaoRepository(BaseRepository):
+class InstitutionRepository(BaseRepository):
     def __init__(self):
-        super().__init__(Instituicao)
+        super().__init__(Institution)
 
-    def get_by_args(self, nome=None, emprestimo_nome=None, data_emprestimo=None, data_retorno_empestimo=None):
-        query = Instituicao.query
-        if nome:
-            query = query.filter(Instituicao.nome.ilike(f'%{nome}%'))
-        if emprestimo_nome:
-            query = query.filter(Instituicao.emprestimo.nome.ilike(f'%{emprestimo_nome}%'))
-        if data_retorno_empestimo:
-            query = query.filter(Instituicao.emprestimo.data_retorno == data_retorno_empestimo)
-        if data_emprestimo:
-            query = query.filter(Instituicao.emprestimo.data_emprestimo == data_emprestimo)
+    def get_by_args(self, name=None, loan_name=None, loan_date=None, return_loan_date=None):
+        query = Institution.query
+        if name:
+            query = query.filter(Institution.name.ilike(f'%{name}%'))
+        if loan_name:
+            query = query.filter(Institution.loan.name.ilike(f'%{loan_name}%'))
+        if return_loan_date:
+            query = query.filter(Institution.loan.return_date == return_loan_date)
+        if loan_date:
+            query = query.filter(Institution.loan.loan_date == loan_date)
         return query.all()
-    def get_by_name(self, nome):
-        return Instituicao.query.filter_by(nome=nome).first()
+    def get_by_name(self, name):
+        return Institution.query.filter_by(name=name).first()

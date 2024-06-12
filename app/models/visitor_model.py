@@ -6,3 +6,4 @@ class Visitor(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100))
     phone = db.Column(db.String(20))
+    tickets = db.relationship('Ticket', back_populates='visitor')

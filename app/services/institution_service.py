@@ -1,7 +1,7 @@
 from app.models.institution_model import Institution
 from app.services.base_service import BaseService
 from app.repositories.institution_repository import InstitutionRepository
-from app.services.obra_service import obra_to_dict
+from app.services.work_of_art_service import work_of_art_to_dict
 
 class InstitutionService(BaseService):
     def __init__(self):
@@ -11,7 +11,7 @@ class InstitutionService(BaseService):
         return {
             'id': institution.id,
             'name': institution.name,
-            'works_of_art': [obra_to_dict(loan.work_of_art) for loan in institution.loans]
+            'works_of_art': [work_of_art_to_dict(loan.work_of_art) for loan in institution.loans]
         }
 
     def create(self, data):
@@ -43,8 +43,8 @@ class InstitutionService(BaseService):
         except Exception as e:
             return self.error_response("Institution not found", 404)
 
-    def fetch_by_args(self, nome=None, emprestimo_nome=None, data_emprestimo=None, data_retorno_empestimo=None):
-        results = self.repository.get_by_args(nome, emprestimo_nome, data_emprestimo,data_retorno_empestimo)
+    def fetch_by_args(self, name=None, loan_name=None, loan_date=None, return_loan_date=None):
+        results = self.repository.get_by_args(name, loan_name, loan_date, return_loan_date)
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]

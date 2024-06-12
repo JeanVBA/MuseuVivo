@@ -12,6 +12,7 @@ class AuthorService(BaseService):
             'name': author.name,
         }
 
+
     def create(self, data):
         name = data.get('name')
         if not name:
@@ -21,6 +22,8 @@ class AuthorService(BaseService):
 
     def update(self, author_id, data):
         author = self.repository.get_by_id(author_id)
+        if author is None:
+                return self.error_response("Author not found", 404)
         name = data.get('name')
         if author is None:
             return self.error_response("Author not found", 404)

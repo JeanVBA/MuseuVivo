@@ -20,24 +20,27 @@ class ExhibitionWorkOfArtService(BaseService):
 
     def exhibitions_to_dict(self, instance):
         return {
-            'exhibition_id': instance.exposicao_id,
-            'exhibition_title': instance.exposicao.titulo,
+            'exhibition_id': instance.exhibition_id,
+            'exhibition_title': instance.exhibition.title,
             'works_of_art': [work_of_art_to_dict(exhibition_work_of_art.work_of_art)
-                             for exhibition_work_of_art in instance.exhibition.works_of_art_exhibitions]
+                             for exhibition_work_of_art in instance.exhibition.exhibition_works_of_art]
         }
 
     def works_of_art_to_dict(self, instance):
         return {
-            'work_of_art_id': instance.obra_id,
-            'work_of_art_name': instance.obra.nome,
+            'work_of_art_id': instance.work_of_art_id,
+            'work_of_art_name': instance.work_of_art.name,
             'exhibitions': [exhibition_to_dict(exhibition_work_of_art.exhibition)
-                           for exhibition_work_of_art in instance.work_of_art.works_of_art_exhibitions]
+                           for exhibition_work_of_art in instance.work_of_art.exhibition_works_of_art]
         }
 
     def create(self, data):
+
         work_of_art_id = data.get('work_of_art_id')
         exhibition_id = data.get('exhibition_id')
-
+        exhibition_work_of_art = self.repository.get_by_ids(work_of_art_id, exhibition_id)
+        if exhibition_work_of_art is not None:
+            return self.error_response("Relationship already created", 302)
         if work_of_art_id is None or exhibition_id is None:
             return self.error_response("Work of art - Id and Exhibition - Id must be provided", 400)
         work_of_art = WorkOfArt.query.get(work_of_art_id)

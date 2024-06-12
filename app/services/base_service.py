@@ -19,19 +19,19 @@ class BaseService:
         instances = self.repository.get_all()
         return [self.to_dict(instance) for instance in instances]
 
-    def fetch_by_id(self, id):
-        instance = self.repository.get_by_id(id)
+    def fetch_by_id(self, object_id):
+        instance = self.repository.get_by_id(object_id)
         return self.to_dict(instance)
 
     def create(self, data):
         instance = self.repository.create(**data)
         return self.to_dict(instance)
 
-    def update(self, id, data):
-        instance = self.repository.get_by_id(id)
+    def update(self, object_id, data):
+        instance = self.repository.get_by_id(object_id)
         instance = self.repository.update(instance, **data)
         return self.to_dict(instance)
 
-    def delete(self, id):
-        instance = self.repository.get_by_id(id)
+    def delete(self, object_id):
+        instance = self.repository.get_by_id(object_id)
         self.repository.delete(instance)

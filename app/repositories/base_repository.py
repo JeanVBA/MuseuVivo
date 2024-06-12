@@ -8,7 +8,7 @@ class BaseRepository:
         return self.model.query.all()
 
     def get_by_id(self, id):
-        return self.model.query.get_or_404(id)
+        return self.model.query.get(id)
 
     def create(self, **kwargs):
         instance = self.model(**kwargs)

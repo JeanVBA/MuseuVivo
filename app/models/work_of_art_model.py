@@ -11,4 +11,4 @@ class WorkOfArt(db.Model):
     type = db.Column(db.String(10))
     author = db.relationship('Author', backref=db.backref('works_of_art', lazy=True))
     location = db.relationship('Location', backref=db.backref('works_of_art', lazy=True))
-    works_of_art_exhibitions = db.relationship('ExhibitionWorkOfArt', back_populates='work_of_art')
+    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='work_of_art')

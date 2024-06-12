@@ -6,6 +6,7 @@ from app.services.author_service import AuthorService
 author_service = AuthorService()
 author_controller = base_controller(author_service)
 
+
 def get_by_name(name):
     result = author_service.fetch_by_name(name)
     if isinstance(result, dict):

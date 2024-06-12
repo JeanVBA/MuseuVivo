@@ -1,18 +1,18 @@
 from app.repositories.base_repository import BaseRepository
-from app.models.author_model import Autor
+from app.models.author_model import Author
 
 
-class AutorRepository(BaseRepository):
+class AuthorRepository(BaseRepository):
     def __init__(self):
-        super().__init__(Autor)
+        super().__init__(Author)
 
-    def get_by_name(self, nome):
-        return Autor.query.filter_by(nome=nome).first()
+    def get_by_name(self, name):
+        return Author.query.filter_by(name=name).first()
 
-    def get_by_args(self, autor_id=None, nome=None):
-        query = Autor.query
+    def get_by_args(self, author_id=None, name=None):
+        query = Author.query
         if id:
-            query = query.filter(Autor.id == autor_id)
-        if nome:
-            query = query.filter(Autor.nome.ilike(f'%{nome}%'))
+            query = query.filter(Author.id == author_id)
+        if name:
+            query = query.filter(Author.name.ilike(f'%{name}%'))
         return query.all()

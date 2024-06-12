@@ -1,5 +1,6 @@
 from app.extentions import db
 
+
 class Exhibition(db.Model):
     __tablename__ = 'exhibitions'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -7,4 +8,4 @@ class Exhibition(db.Model):
     description = db.Column(db.Text)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
-    exhibition_works_of_art = db.relationship('ObraExposicao', back_populates='exposicao')
+    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='exhibition')

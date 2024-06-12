@@ -1,4 +1,9 @@
+from decimal import Decimal
+
+from sqlalchemy import event
+
 from app.models.institution_model import Institution
+from app.models.ticket_model import Ticket
 from app.models.work_of_art_model import WorkOfArt
 from app.services.base_service import BaseService
 from app.repositories.loan_repository import LoanRepository
@@ -31,7 +36,8 @@ class LoanService(BaseService):
             'work_of_art_id': data.get('work_of_art_id'),
             'loan_date': data.get('loan_date'),
             'return_date': data.get('return_date'),
-            'institution_id': data.get('institution_id')
+            'institution_id': data.get('institution_id'),
+            'amount_collected': 0.00
         }
         if loan_data['work_of_art_id'] is None:
             return self.error_response("Cannot be registered without having associated a work of art", 400)
@@ -96,3 +102,9 @@ class LoanService(BaseService):
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]
+
+    def distribute_additional_amount(self, purchase_date, additional_amount):
+        loans = self.repository.get_loans_within_dates(purchase_date)
+        for loan in loans:
+            loan.amount_collected += Decimal(additional_amount)
+            self.repository.update_loan(loan)

@@ -1,3 +1,5 @@
+from flask import jsonify
+
 from app.models.author_model import Author
 from app.models.location_model import Location
 from app.models.work_of_art_model import WorkOfArt
@@ -19,16 +21,18 @@ class WorkOfArtService(BaseService):
             'location': work_of_art.location.name if work_of_art.location else None,
             'type': work_of_art.type
         }
-        if work_of_art.type == 'Sculpture' and work_of_art.sculpture:
+        if work_of_art.type == 'Sculpture' and work_of_art.sculptures:
+            sculpture = work_of_art.sculptures  # assuming one-to-one for simplicity
             work_of_art_dict['sculpture'] = {
-                'material': work_of_art.sculpture.material,
-                'weight': work_of_art.sculpture.weight
+                'material': sculpture.material,
+                'weight': sculpture.weight
             }
         elif work_of_art.type == 'Painting' and work_of_art.painting:
+            painting = work_of_art.painting  # assuming one-to-one for simplicity
             work_of_art_dict['painting'] = {
-                'technique': work_of_art.painting.technique
+                'technique': painting.technique
             }
-        return work_of_art
+        return work_of_art_dict
 
     def create(self, data):
         work_of_art_data = {
@@ -97,7 +101,7 @@ def work_of_art_to_dict(work_of_art):
         'author': work_of_art.author.name if work_of_art.author else None,
         'type': work_of_art.type
     }
-    if work_of_art.type == 'Sculpture' and work_of_art.sculpture:
+    if work_of_art.type == 'Sculpture' and work_of_art.sculptures:
         work_of_art_dict['sculpture'] = {
             'material': work_of_art.sculpture.material,
             'weight': work_of_art.sculpture.weight

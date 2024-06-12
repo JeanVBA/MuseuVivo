@@ -1,0 +1,114 @@
+class Author(db.Model):
+    __tablename__ = 'authors'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+
+class Exhibition(db.Model):
+    __tablename__ = 'exhibitions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text)
+    start_date = db.Column(db.Date)
+    end_date = db.Column(db.Date)
+    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='exhibition')
+
+class ExhibitionWorkOfArt(db.Model):
+    __tablename__ = 'works_of_art_exhibitions'
+    work_of_art_id = db.Column(db.Integer, db.ForeignKey('works_of_art.id'), primary_key=True)
+    exhibition_id = db.Column(db.Integer, db.ForeignKey('exhibitions.id'), primary_key=True)
+    work_of_art = db.relationship('WorkOfArt', back_populates='exhibition_works_of_art')
+    exhibition = db.relationship('Exhibition', back_populates='exhibition_works_of_art')
+
+class Guide(db.Model):
+    __tablename__ = 'guides'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+
+class GuidedVisit(db.Model):
+    __tablename__ = 'guided_visits'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    group = db.Column(db.String(255))
+    visit_date = db.Column(db.Date)
+    hours = db.Column(db.Time)
+    responsible_guide_id = db.Column(db.Integer, db.ForeignKey('guides.id'))
+    guide = db.relationship('Guide', backref=db.backref('guided_visits', lazy=True))
+
+class Institution(db.Model):
+    __tablename__ = 'institutions'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+
+class Loan(db.Model):
+    __tablename__ = 'loans'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    work_of_art_id = db.Column(db.Integer, db.ForeignKey('works_of_art.id'))
+    institution_id = db.Column(db.Integer, db.ForeignKey('institutions.id'))
+    loan_date = db.Column(db.Date)
+    return_date = db.Column(db.Date)
+    amount_collected = db.Column(db.Numeric(10, 2), nullable=False)
+    work_of_art = db.relationship('WorkOfArt', backref='loans')
+    institution = db.relationship('Institution', backref='loans')
+
+class Location(db.Model):
+    __tablename__ = 'locations'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), nullable=False)
+
+class Painting(db.Model):
+    __tablename__ = 'paintings'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    work_of_art_id = db.Column(db.Integer, db.ForeignKey('works_of_art.id', ondelete='CASCADE'))
+    technique = db.Column(db.String(100))
+    work_of_art = db.relationship('WorkOfArt', backref=db.backref('painting', uselist=False, cascade="all, delete"))
+
+class Sculpture(db.Model):
+    __tablename__ = 'sculptures'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    work_of_art_id = db.Column(db.Integer, db.ForeignKey('works_of_art.id', ondelete='CASCADE'))
+    material = db.Column(db.String(100))
+    weight = db.Column(db.Numeric(10, 2))
+    work_of_art = db.relationship('WorkOfArt', backref=db.backref('sculptures', uselist=False, cascade="all, delete"))
+
+class Security(db.Model):
+    __tablename__ = 'securities'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255))
+    phone = db.Column(db.String(20))
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    location = db.relationship('Location', backref=db.backref('securities', lazy=True))
+
+class Ticket(db.Model):
+    __tablename__ = 'tickets'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    visitor_id = db.Column(db.Integer, db.ForeignKey('visitors.id'))
+    type = db.Column(db.String(10))
+    visit_date = db.Column(db.Date)
+    purchase_date = db.Column(db.Date)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
+    guided_visit_id = db.Column(db.Integer, db.ForeignKey('guided_visits.id'))
+    visitor = db.relationship('Visitor', back_populates='tickets')
+    guided_visit = db.relationship('GuidedVisit', backref=db.backref('tickets', lazy=True))
+
+class Visitor(db.Model):
+    __tablename__ = 'visitors'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    tickets = db.relationship('Ticket', back_populates='visitor')
+
+class WorkOfArt(db.Model):
+    __tablename__ = 'works_of_art'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    creation_date = db.Column(db.Date)
+    author_id = db.Column(db.Integer, db.ForeignKey('authors.id'))
+    location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    type = db.Column(db.String(10))
+    author = db.relationship('Author', backref=db.backref('works_of_art', lazy=True))
+    location = db.relationship('Location', backref=db.backref('works_of_art', lazy=True))
+    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='work_of_art')

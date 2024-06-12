@@ -9,7 +9,7 @@ from datetime import datetime
 from app.services.loan_service import LoanService
 
 
-class IngressoService(BaseService):
+class TicketService(BaseService):
     def __init__(self):
         super().__init__(TicketRepository())
         self.loan_service = LoanService()
@@ -115,3 +115,18 @@ class IngressoService(BaseService):
     def fetch_by_args(self, ticket_type=None, visitor_name=None):
         results = self.repository.get_by_args(ticket_type, visitor_name)
         return [self.to_dict(result) for result in results]
+
+
+def ticket_to_dict(ticket):
+    return {
+            'id': ticket.id,
+            'type': ticket.type,
+            'visit_date': ticket.visit_date,
+            'purchase_date': ticket.purchase_date,
+            'guided_visit': {
+                'group': ticket.guided_visit.group if ticket.guided_visit else None,
+                'guide': {
+                    'name': ticket.guided_visit.guide.name if ticket.guided_visit.guide else None
+                }
+            }
+        }

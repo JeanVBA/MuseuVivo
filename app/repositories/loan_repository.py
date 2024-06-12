@@ -1,3 +1,4 @@
+from app import db
 from app.models.institution_model import Institution
 from app.models.work_of_art_model import WorkOfArt
 from app.repositories.base_repository import BaseRepository
@@ -8,6 +9,15 @@ class LoanRepository(BaseRepository):
     def __init__(self):
         super().__init__(Loan)
 
+    def get_loans_within_dates(self, purchase_date):
+        return Loan.query.filter(
+            Loan.loan_date <= purchase_date,
+            Loan.return_date >= purchase_date
+        ).all()
+
+    def update_loan(self, loan):
+        db.session.add(loan)
+        db.session.commit()
     def get_by_args(self, return_date=None, loan_date=None, work_of_art_name=None, institution_name=None):
         query = Loan.query
         if return_date:

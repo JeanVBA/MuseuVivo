@@ -1,20 +1,30 @@
-from app.models.guide_model import Guia
-from app.models.visitor_model import Visitante
+from sqlalchemy import and_
+
+from app.models.guide_model import Guide
+from app.models.loan_model import Loan
+from app.models.visitor_model import Visitor
 from app.repositories.base_repository import BaseRepository
-from app.models.ticket_model import Ingresso
+from app.models.ticket_model import Ticket
 
 
-class IngressoRepository(BaseRepository):
+class TicketRepository(BaseRepository):
     def __init__(self):
-        super().__init__(Ingresso)
+        super().__init__(Ticket)
 
-    def get_by_args(self, tipo=None, visitante_nome=None):
-        query = Ingresso.query
-        if tipo:
-            query = query.filter(Ingresso.tipo.ilike(f'%{tipo}%'))
-        if visitante_nome:
-            query = query.join(Visitante).filter(Visitante.nome.ilike(f'%{visitante_nome}%'))
+    def get_by_loans(self, purchase_date):
+        return Loan.query.filter(
+            and_(
+                Loan.loan_date < purchase_date,
+                Loan.return_date > purchase_date
+            )
+        ).all()
+    def get_by_args(self, ticket_type=None, visitor_name=None):
+        query = Ticket.query
+        if ticket_type:
+            query = query.filter(Ticket.type.ilike(f'%{ticket_type}%'))
+        if visitor_name:
+            query = query.join(Visitor).filter(Visitor.name.ilike(f'%{visitor_name}%'))
         return query.all()
 
-    def get_by_type(self, tipo):
-        return Ingresso.query.filter_by(tipo=tipo).all()
+    def get_by_type(self, ticket_type):
+        return Ticket.query.filter_by(type=ticket_type).all()
