@@ -7,5 +7,5 @@ sculpture_bp = base_routes(entity_name='sculpture',
                            create=sculpture_controller['create'],
                            update=sculpture_controller['update'],
                            delete=sculpture_controller['delete'])
-sculpture_bp.route('/obra/<string:work_by_name>', methods=['GET'])(get_by_work_by_name)
+sculpture_bp.route('/work_of_art/<string:work_by_name>', methods=['GET'])(get_by_work_by_name)
 sculpture_bp.route('', methods=['GET'])(get_by_args)

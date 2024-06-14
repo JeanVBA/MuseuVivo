@@ -82,7 +82,7 @@ class SculptureService(BaseService):
             return self.error_response("Sculpture not found", 404)
 
     def fetch_by_work_of_art_name(self, work_of_art_name):
-        return [self.to_dict(instance) for instance in self.repository.get_by_obra_nome(work_of_art_name)]
+        return [self.to_dict(instance) for instance in self.repository.get_by_work_of_art_name(work_of_art_name)]
 
     def fetch_by_args(self, work_of_art_name=None, material=None, weight=None):
         results = self.repository.get_by_args(work_of_art_name, material, weight)

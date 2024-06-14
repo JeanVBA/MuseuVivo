@@ -54,6 +54,8 @@ class WorkOfArtService(BaseService):
 
     def update(self, work_of_art_id, data):
         work_of_art = self.repository.get_by_id(work_of_art_id)
+        if work_of_art is None:
+             return self.error_response("Work of art not found", 404)
         work_of_art_data = {
             'name': data.get('name'),
             'description': data.get('description'),
@@ -85,9 +87,8 @@ class WorkOfArtService(BaseService):
         except Exception as e:
             return self.error_response("Work of art not found", 404)
 
-    def fetch_by_args(self, name=None, creation_date=None, author_name=None, location_name=None, type=None,
-                      loan_name=None):
-        results = self.repository.get_by_args(name, creation_date, author_name, location_name, type, loan_name)
+    def fetch_by_args(self, name=None, creation_date=None, author_name=None, location_name=None, type=None):
+        results = self.repository.get_by_args(name, creation_date, author_name, location_name, type)
         if results is None:
             return self.error_response("Cannot be registered without having a visitor associated", 404)
         return [self.to_dict(result) for result in results]

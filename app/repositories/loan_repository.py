@@ -31,7 +31,7 @@ class LoanRepository(BaseRepository):
         return query.all()
 
     def get_by_work_of_art_name(self, work_of_art_name):
-        return Loan.query.join(Loan.work_of_art).filter(WorkOfArt.nome.ilike(f'%{work_of_art_name}%')).all()
+        return Loan.query.join(Loan.work_of_art).filter(WorkOfArt.name.ilike(f'%{work_of_art_name}%')).all()
 
     def get_by_institution_name(self, institution_name):
-        return Loan.query.join(Loan.institution).filter(Institution.nome.ilike(f'%{institution_name}%')).all()
+        return Loan.query.join(Loan.institution).filter(Institution.name.ilike(f'%{institution_name}%')).all()

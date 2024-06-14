@@ -11,8 +11,8 @@ class AuthorRepository(BaseRepository):
 
     def get_by_args(self, author_id=None, name=None):
         query = Author.query
-        if id:
+        if author_id:
             query = query.filter(Author.id == author_id)
         if name:
-            query = query.filter(Author.name.ilike(f'%{name}%'))
+            query = query.filter(Author.name == name)
         return query.all()

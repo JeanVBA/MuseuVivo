@@ -43,8 +43,8 @@ class InstitutionService(BaseService):
         except Exception as e:
             return self.error_response("Institution not found", 404)
 
-    def fetch_by_args(self, name=None, loan_name=None, loan_date=None, return_loan_date=None):
-        results = self.repository.get_by_args(name, loan_name, loan_date, return_loan_date)
+    def fetch_by_args(self, name=None, loan_date=None, return_loan_date=None):
+        results = self.repository.get_by_args(name, loan_date, return_loan_date)
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]

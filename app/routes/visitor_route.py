@@ -9,5 +9,5 @@ visitor_bp = base_routes(entity_name='visitor',
                            create=visitor_controller['create'],
                            update=visitor_controller['update'],
                            delete=visitor_controller['delete'])
-visitor_bp.route('/<string:nome>', methods=['GET'])(get_by_name)
+visitor_bp.route('/<string:name>', methods=['GET'])(get_by_name)
 visitor_bp.route('', methods=['GET'])(get_by_args)

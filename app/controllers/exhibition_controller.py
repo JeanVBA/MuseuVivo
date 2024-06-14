@@ -18,7 +18,6 @@ def get_by_args():
     title = request.args.get('title')
     start_date = request.args.get('start_date')
     end_date = request.args.get('end_date')
-    work_of_art_name = request.args.get('work_of_art_name')
 
-    items = exhibition_service.fetch_by_args(title, start_date, end_date, work_of_art_name)
+    items = exhibition_service.fetch_by_args(title, start_date, end_date)
     return jsonify(items)

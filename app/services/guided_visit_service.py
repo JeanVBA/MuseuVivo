@@ -37,11 +37,14 @@ class GuidedVisitService(BaseService):
         if guided_visit_data['hours'] is None:
             return self.error_response("The hours must be between 9am and 5pm", 400)
         if guided_visit_data['hours']:
-            visit_hour = datetime.strptime(guided_visit_data['hours'], '%H:%M').time()
-            start_hour = time(9, 0)
-            end_hour = time(17, 0)
-            if not (start_hour <= visit_hour <= end_hour):
-                return self.error_response("The hours must be between 9am and 5pm", 400)
+            try:
+                visit_hour = datetime.strptime(guided_visit_data['hours'], '%H:%M').time()
+                start_hour = time(9, 0)
+                end_hour = time(17, 0)
+                if not (start_hour <= visit_hour <= end_hour):
+                    return self.error_response("The hours must be between 9am and 5pm", 400)
+            except ValueError:
+                return self.error_response("The format hours is incorrect, use format hh:MM", 400)
         instance = self.repository.create(**guided_visit_data)
         return self.to_dict(instance)
 

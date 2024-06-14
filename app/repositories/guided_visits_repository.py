@@ -1,3 +1,4 @@
+from app.models.guide_model import Guide
 from app.repositories.base_repository import BaseRepository
 from app.models.guided_visits_model import GuidedVisit
 
@@ -15,5 +16,6 @@ class GuidedVisitRepository(BaseRepository):
         if hours:
             query = query.filter(GuidedVisit.hours == hours)
         if responsible_guide_name:
-            query = query.filter(GuidedVisit.guide.name.ilike(f'%{responsible_guide_name}%'))
+            query = query.join(Guide).filter(Guide.name.ilike(f'%{responsible_guide_name}%'))
+
         return query.all()

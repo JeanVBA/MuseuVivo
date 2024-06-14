@@ -1,3 +1,4 @@
+from app.models.work_of_art_model import WorkOfArt
 from app.repositories.base_repository import BaseRepository
 from app.models.painting_model import Painting
 
@@ -11,5 +12,5 @@ class PaintingRepository(BaseRepository):
         if technique:
             query = query.filter(Painting.technique.ilike(f'%{technique}%'))
         if work_of_art_name:
-            query = query.filter(Painting.work_of_art.name.ilike(f'%{work_of_art_name}%'))
+            query = query.join(WorkOfArt).filter(WorkOfArt.name.ilike(f'%{work_of_art_name}%'))
         return query.all()

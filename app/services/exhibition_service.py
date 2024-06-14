@@ -21,7 +21,7 @@ class ExhibitionService(BaseService):
         exhibition_data = {
             'title': data.get('title'),
             'description': data.get('description'),
-            'start_date': data.get('start_date'),
+            'start_date': data['start_date'],
             'end_date': data['end_date']
         }
         if exhibition_data['title'] is None:
@@ -70,8 +70,8 @@ class ExhibitionService(BaseService):
             return self.to_dict(result)
         return self.error_response("Exhibition fot found", 404)
 
-    def fetch_by_args(self, title=None, start_date=None, end_date=None, work_of_art_name=None):
-        results = self.repository.get_by_args(title, start_date, end_date, work_of_art_name)
+    def fetch_by_args(self, title=None, start_date=None, end_date=None):
+        results = self.repository.get_by_args(title, start_date, end_date)
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]

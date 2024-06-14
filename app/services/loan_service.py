@@ -56,6 +56,8 @@ class LoanService(BaseService):
 
     def update(self, loan_id, data):
         loan = self.repository.get_by_id(loan_id)
+        if loan is None:
+            return self.error_response("Loan not found", 404)
         loan_data = {
             'work_of_art_id': data.get('work_of_art_id'),
             'loan_date': data.get('loan_date'),
@@ -89,13 +91,13 @@ class LoanService(BaseService):
             loan = self.repository.query.get(id)
             return self.to_dict(loan)
         except Exception as e:
-            return self.error_response("Emprestimo não encontrado", 404)
+            return self.error_response("Loan not found", 404)
 
     def fetch_by_institution_name(self, institution_name):
-        return [self.to_dict(instance) for instance in self.repository.get_by_instituicao_nome(institution_name)]
+        return [self.to_dict(instance) for instance in self.repository.get_by_institution_name(institution_name)]
 
     def fetch_by_work_of_art_name(self, work_of_art_name):
-        return [self.to_dict(instance) for instance in self.repository.get_by_obra_name(work_of_art_name)]
+        return [self.to_dict(instance) for instance in self.repository.get_by_work_of_art_name(work_of_art_name)]
 
     def fetch_by_args(self, return_date=None, loan_date=None, work_of_art_name=None, institution_name=None):
         results = self.repository.get_by_args(return_date, loan_date, work_of_art_name, institution_name)

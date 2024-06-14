@@ -7,4 +7,4 @@ location_bp = base_routes(entity_name='location',
                           create=location_controller['create'],
                           update=location_controller['update'],
                           delete=location_controller['delete'])
-location_bp.route('/<string:nome>', methods=['GET'])(get_by_name)
+location_bp.route('/<string:name>', methods=['GET'])(get_by_name)

@@ -7,7 +7,7 @@ class ExhibitionRepository(BaseRepository):
     def __init__(self):
         super().__init__(Exhibition)
 
-    def get_by_args(self, title=None, start_date=None, end_date=None, work_of_art_name=None):
+    def get_by_args(self, title=None, start_date=None, end_date=None):
         query = Exhibition.query
         if start_date:
             query = query.filter(Exhibition.start_date == start_date)
@@ -15,8 +15,6 @@ class ExhibitionRepository(BaseRepository):
             query = query.filter(Exhibition.end_date == end_date)
         if title:
             query = query.filter(Exhibition.title.ilike(f'%{title}%'))
-        if work_of_art_name:
-            query = query.join(WorkOfArt).filter(WorkOfArt.name.ilike(f'{work_of_art_name}'))
         return query.all()
     def get_by_title(self, title):
         return Exhibition.query.filter_by(title=title).first()

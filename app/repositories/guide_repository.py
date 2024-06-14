@@ -13,7 +13,7 @@ class GuideRepository(BaseRepository):
         if email:
             query = query.filter(Guide.email.ilike(f'%{email}%'))
         if phone:
-            query = query.filter(Guide.telefone == phone)
+            query = query.filter(Guide.phone.ilike(f'%{phone}%'))
         return query.all()
     def get_by_name(self, name):
         return Guide.query.filter_by(name=name).first()

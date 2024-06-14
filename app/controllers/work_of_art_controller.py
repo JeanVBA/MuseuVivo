@@ -13,8 +13,6 @@ def get_by_args():
     author_name = request.args.get('author_name')
     location_name = request.args.get('location_name')
     work_of_art_type = request.args.get('type')
-    exhibition_name = request.args.get('exhibition_name')
 
-    items = work_of_art_service.fetch_by_args(name, creation_date, author_name, location_name,
-                                              work_of_art_type, exhibition_name)
+    items = work_of_art_service.fetch_by_args(name, creation_date, author_name, location_name, work_of_art_type)
     return jsonify(items)

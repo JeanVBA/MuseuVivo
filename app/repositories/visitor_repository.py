@@ -13,7 +13,7 @@ class VisitorRepository(BaseRepository):
         if email:
             query = query.filter(Visitor.email.ilike(f'%{email}%'))
         if phone:
-            query = query.filter(Visitor.phone == phone)
+            query = query.filter(Visitor.phone.ilike(f'%{phone}%'))
         return query.all()
     def get_by_name(self, name):
         return Visitor.query.filter_by(name=name).first()
