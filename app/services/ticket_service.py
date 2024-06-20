@@ -107,8 +107,8 @@ class TicketService(BaseService):
 
     def delete(self, ticket_id):
         try:
-            instance = self.repository.query.get(ticket_id)
-            return self.to_dict(instance)
+            ticket = self.repository.get_by_id(ticket_id)
+            self.repository.delete(ticket)
         except Exception as e:
             return self.error_response("Ticket not found", 404)
 

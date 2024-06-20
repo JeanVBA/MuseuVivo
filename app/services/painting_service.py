@@ -60,11 +60,11 @@ class PaintingService(BaseService):
             return self.to_dict(instance)
         except Exception as e:
             return self.error_response("Painting not found", 404)
-
+        
     def delete(self, painting_id):
         try:
-            instance = self.repository.query.get(painting_id)
-            return self.to_dict(instance)
+            painting = self.repository.get_by_id(painting_id)
+            self.repository.delete(painting)
         except Exception as e:
             return self.error_response("Painting not found", 404)
 

@@ -1,6 +1,5 @@
 from sqlalchemy import and_
-
-from app.models.guide_model import Guide
+from app import db
 from app.models.loan_model import Loan
 from app.models.visitor_model import Visitor
 from app.repositories.base_repository import BaseRepository

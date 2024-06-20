@@ -89,7 +89,7 @@ class LoanService(BaseService):
     def delete(self, id):
         try:
             loan = self.repository.query.get(id)
-            return self.to_dict(loan)
+            self.repository.delete(loan)
         except Exception as e:
             return self.error_response("Loan not found", 404)
 
