@@ -1,5 +1,6 @@
 import requests
 from ui_functions import populate_table
+from PySide6.QtWidgets import QTableWidgetItem
 
 def collect_form_data(main_window):
     data = {
@@ -13,6 +14,29 @@ def collect_form_data(main_window):
     }
     return data
 
+
+def populate_table_work_of_art(table_widget, data):
+    # Define all possible columns
+    columns = ["author", "creation_date", "description", "id", "location", "name", "type", "material", "weight",
+               "technique"]
+
+    # Set the column count and headers
+    table_widget.setColumnCount(len(columns))
+    table_widget.setHorizontalHeaderLabels(columns)
+
+    # Populate the table
+    table_widget.setRowCount(len(data))
+    for row_idx, item in enumerate(data):
+        for col_idx, column in enumerate(columns):
+            if column in item:
+                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(item[column])))
+            elif "sculpture" in item and column in item["sculpture"]:
+                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(item["sculpture"][column])))
+            elif "painting" in item and column in item["painting"]:
+                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(item["painting"][column])))
+            else:
+                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(""))
+
 def determine_request_method(data):
     if not data['id']:
         return "POST"
@@ -24,7 +48,7 @@ def determine_request_method(data):
 
 def initialize_work_of_art(main_window):
     works_of_art = get_all_work_of_art()
-    populate_table(main_window.ui.table_work_of_art, works_of_art)
+    populate_table_work_of_art(main_window.ui.table_work_of_art, works_of_art)
 
 def search_work_of_art(main_window):
         path = "?"
@@ -60,7 +84,7 @@ def search_work_of_art(main_window):
             path = ""
 
         data = get_args(path)
-        populate_table(main_window.ui.table_work_of_art, data)
+        populate_table_work_of_art(main_window.ui.table_work_of_art, data)
 
 def get_all_work_of_art():
     url = "http://127.0.0.1:5000/work_of_art"  # Substitua pela URL correta da API

@@ -22,15 +22,16 @@ def initialize_location(main_window):
     populate_table(main_window.ui.table_location, locations)
 
 def search_location(main_window):
-        path = ""
-        location_name = main_window.ui.search_location_name.text()
-        if location_name:
-            path += "/" + location_name
-        if path == "?":
-            path = ""
+    path = "?"
+    location_name = main_window.ui.search_location_name.text()
 
-        data = get_args(path)
-        populate_table(main_window.ui.table_location, data)
+    if location_name:
+        path += "name=" + location_name
+    if path == "?":
+        path = ""
+
+    data = get_args(path)
+    populate_table(main_window.ui.table_location, data)
 
 def get_all_location():
     url = "http://127.0.0.1:5000/location"  # Substitua pela URL correta da API

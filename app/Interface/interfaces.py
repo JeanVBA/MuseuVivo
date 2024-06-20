@@ -16,3 +16,4 @@ def initializes(main_window):
     initialize_author(main_window)
     initialize_work_of_art(main_window)
     initialize_location(main_window)
+
