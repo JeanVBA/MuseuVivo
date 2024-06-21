@@ -133,12 +133,18 @@ def show_and_hide_author(main_window):
     main_window.ui.btn_delete.clicked.connect(lines_visibility([main_window.ui.line_author_id], [main_window.ui.line_author_name]))
 
 def show_and_hide_ew(main_window):
-    main_window.ui.btn_create.clicked.connect(lines_visibility([main_window.ui.line_exhibition_work_of_art_work_id, 
-                                                                main_window.ui.line_exhibition_work_of_art_exhibition_id],[]))
-    main_window.ui.btn_update.clicked.connect(lines_visibility([main_window.ui.line_exhibition_work_of_art_work_id, 
-                                                                main_window.ui.line_exhibition_work_of_art_exhibition_id],[]))
-    main_window.ui.btn_delete.clicked.connect(lines_visibility([main_window.ui.line_exhibition_work_of_art_work_id, 
-                                                                main_window.ui.line_exhibition_work_of_art_exhibition_id],[]))
+    main_window.ui.btn_create.clicked.connect(lines_visibility([main_window.ui.line_ew_work_of_art_id,
+                                                                main_window.ui.line_ew_exhibition_id],
+                                                               [main_window.ui.line_new_ew_exhibition_id,
+                                                                main_window.ui.line_new_ew_work_of_art_id]))
+    main_window.ui.btn_update.clicked.connect(lines_visibility([main_window.ui.line_ew_work_of_art_id,
+                                                                main_window.ui.line_ew_exhibition_id,
+                                                                main_window.ui.line_new_ew_work_of_art_id,
+                                                                main_window.ui.line_new_ew_exhibition_id],[]))
+    main_window.ui.btn_delete.clicked.connect(lines_visibility([main_window.ui.line_ew_work_of_art_id,
+                                                                main_window.ui.line_ew_exhibition_id],
+                                                                [main_window.ui.line_new_ew_exhibition_id,
+                                                                 main_window.ui.line_new_ew_work_of_art_id]))
 
 def show_and_hide_guide(main_window):
     main_window.ui.btn_create.clicked.connect(lines_visibility([main_window.ui.line_guide_name,

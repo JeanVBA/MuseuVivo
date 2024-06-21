@@ -61,7 +61,7 @@
           <item>
            <widget class="QToolBox" name="Selections">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="buttons">
              <property name="geometry">
@@ -112,7 +112,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_exihibition_work_of_art">
+               <widget class="QPushButton" name="btn_ew">
                 <property name="text">
                  <string>EW</string>
                 </property>
@@ -313,7 +313,7 @@
               <item>
                <widget class="QTabWidget" name="formularies">
                 <property name="currentIndex">
-                 <number>3</number>
+                 <number>5</number>
                 </property>
                 <widget class="QWidget" name="create_work_of_art">
                  <attribute name="title">
@@ -663,13 +663,13 @@
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="create_exhibition_work_of_art">
+                <widget class="QWidget" name="create_ew">
                  <attribute name="title">
                   <string>EW</string>
                  </attribute>
                  <layout class="QVBoxLayout" name="verticalLayout_15">
                   <item>
-                   <widget class="QLineEdit" name="line_exhibition_work_of_art_work_id">
+                   <widget class="QLineEdit" name="line_ew_work_of_art_id">
                     <property name="text">
                      <string/>
                     </property>
@@ -679,7 +679,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QLineEdit" name="line_exhibition_work_of_art_exhibition_id">
+                   <widget class="QLineEdit" name="line_ew_exhibition_id">
                     <property name="text">
                      <string/>
                     </property>
@@ -689,7 +689,21 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="btn_apply_exhibition_work_of_art">
+                   <widget class="QLineEdit" name="line_new_ew_work_of_art_id">
+                    <property name="placeholderText">
+                     <string>New Work of Art identification</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="line_new_ew_exhibition_id">
+                    <property name="placeholderText">
+                     <string>New Exhibition identification</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_apply_ew">
                     <property name="text">
                      <string>Apply</string>
                     </property>

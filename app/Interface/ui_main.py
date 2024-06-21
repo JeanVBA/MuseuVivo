@@ -89,10 +89,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.btn_exhibition)
 
-        self.btn_exihibition_work_of_art = QPushButton(self.buttons)
-        self.btn_exihibition_work_of_art.setObjectName(u"btn_exihibition_work_of_art")
+        self.btn_ew = QPushButton(self.buttons)
+        self.btn_ew.setObjectName(u"btn_ew")
 
-        self.verticalLayout_5.addWidget(self.btn_exihibition_work_of_art)
+        self.verticalLayout_5.addWidget(self.btn_ew)
 
         self.btn_institution = QPushButton(self.buttons)
         self.btn_institution.setObjectName(u"btn_institution")
@@ -385,30 +385,40 @@ class Ui_MainWindow(object):
         self.verticalLayout_11.addItem(self.verticalSpacer_2)
 
         self.formularies.addTab(self.create_author, "")
-        self.create_exhibition_work_of_art = QWidget()
-        self.create_exhibition_work_of_art.setObjectName(u"create_exhibition_work_of_art")
-        self.verticalLayout_15 = QVBoxLayout(self.create_exhibition_work_of_art)
+        self.create_ew = QWidget()
+        self.create_ew.setObjectName(u"create_ew")
+        self.verticalLayout_15 = QVBoxLayout(self.create_ew)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
-        self.line_exhibition_work_of_art_work_id = QLineEdit(self.create_exhibition_work_of_art)
-        self.line_exhibition_work_of_art_work_id.setObjectName(u"line_exhibition_work_of_art_work_id")
+        self.line_ew_work_of_art_id = QLineEdit(self.create_ew)
+        self.line_ew_work_of_art_id.setObjectName(u"line_ew_work_of_art_id")
 
-        self.verticalLayout_15.addWidget(self.line_exhibition_work_of_art_work_id)
+        self.verticalLayout_15.addWidget(self.line_ew_work_of_art_id)
 
-        self.line_exhibition_work_of_art_exhibition_id = QLineEdit(self.create_exhibition_work_of_art)
-        self.line_exhibition_work_of_art_exhibition_id.setObjectName(u"line_exhibition_work_of_art_exhibition_id")
+        self.line_ew_exhibition_id = QLineEdit(self.create_ew)
+        self.line_ew_exhibition_id.setObjectName(u"line_ew_exhibition_id")
 
-        self.verticalLayout_15.addWidget(self.line_exhibition_work_of_art_exhibition_id)
+        self.verticalLayout_15.addWidget(self.line_ew_exhibition_id)
 
-        self.btn_apply_exhibition_work_of_art = QPushButton(self.create_exhibition_work_of_art)
-        self.btn_apply_exhibition_work_of_art.setObjectName(u"btn_apply_exhibition_work_of_art")
+        self.line_new_ew_work_of_art_id = QLineEdit(self.create_ew)
+        self.line_new_ew_work_of_art_id.setObjectName(u"line_new_ew_work_of_art_id")
 
-        self.verticalLayout_15.addWidget(self.btn_apply_exhibition_work_of_art)
+        self.verticalLayout_15.addWidget(self.line_new_ew_work_of_art_id)
+
+        self.line_new_ew_exhibition_id = QLineEdit(self.create_ew)
+        self.line_new_ew_exhibition_id.setObjectName(u"line_new_ew_exhibition_id")
+
+        self.verticalLayout_15.addWidget(self.line_new_ew_exhibition_id)
+
+        self.btn_apply_ew = QPushButton(self.create_ew)
+        self.btn_apply_ew.setObjectName(u"btn_apply_ew")
+
+        self.verticalLayout_15.addWidget(self.btn_apply_ew)
 
         self.verticalSpacer_5 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_15.addItem(self.verticalSpacer_5)
 
-        self.formularies.addTab(self.create_exhibition_work_of_art, "")
+        self.formularies.addTab(self.create_ew, "")
         self.create_guide = QWidget()
         self.create_guide.setObjectName(u"create_guide")
         self.verticalLayout_16 = QVBoxLayout(self.create_guide)
@@ -867,10 +877,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_37.addWidget(self.search_exhibition_start_date)
 
-        self.search_exhibition_title = QLineEdit(self.search_exhibition)
-        self.search_exhibition_title.setObjectName(u"search_exhibition_title")
+        self.search_exhibition_name = QLineEdit(self.search_exhibition)
+        self.search_exhibition_name.setObjectName(u"search_exhibition_name")
 
-        self.verticalLayout_37.addWidget(self.search_exhibition_title)
+        self.verticalLayout_37.addWidget(self.search_exhibition_name)
 
         self.search_exhibition_end_date = QLineEdit(self.search_exhibition)
         self.search_exhibition_end_date.setObjectName(u"search_exhibition_end_date")
@@ -902,20 +912,20 @@ class Ui_MainWindow(object):
         self.search_ew.setFrameShadow(QFrame.Raised)
         self.verticalLayout_36 = QVBoxLayout(self.search_ew)
         self.verticalLayout_36.setObjectName(u"verticalLayout_36")
-        self.search_ew_work_of_art_id = QLineEdit(self.search_ew)
-        self.search_ew_work_of_art_id.setObjectName(u"search_ew_work_of_art_id")
+        self.search_ew_work_of_art_name = QLineEdit(self.search_ew)
+        self.search_ew_work_of_art_name.setObjectName(u"search_ew_work_of_art_name")
 
-        self.verticalLayout_36.addWidget(self.search_ew_work_of_art_id)
+        self.verticalLayout_36.addWidget(self.search_ew_work_of_art_name)
 
-        self.search_ew_exhibition_id = QLineEdit(self.search_ew)
-        self.search_ew_exhibition_id.setObjectName(u"search_ew_exhibition_id")
+        self.search_ew_exhibition_name = QLineEdit(self.search_ew)
+        self.search_ew_exhibition_name.setObjectName(u"search_ew_exhibition_name")
 
-        self.verticalLayout_36.addWidget(self.search_ew_exhibition_id)
+        self.verticalLayout_36.addWidget(self.search_ew_exhibition_name)
 
-        self.btn_search_ew = QPushButton(self.search_ew)
-        self.btn_search_ew.setObjectName(u"btn_search_ew")
+        self.btn_serach_ew = QPushButton(self.search_ew)
+        self.btn_serach_ew.setObjectName(u"btn_serach_ew")
 
-        self.verticalLayout_36.addWidget(self.btn_search_ew)
+        self.verticalLayout_36.addWidget(self.btn_serach_ew)
 
 
         self.verticalLayout_27.addWidget(self.search_ew)
@@ -1261,7 +1271,7 @@ class Ui_MainWindow(object):
 
         self.Selections.setCurrentIndex(0)
         self.pages_events.setCurrentIndex(0)
-        self.formularies.setCurrentIndex(12)
+        self.formularies.setCurrentIndex(5)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -1275,7 +1285,7 @@ class Ui_MainWindow(object):
         self.btn_sculpture.setText(QCoreApplication.translate("MainWindow", u"Sculpture", None))
         self.btn_author.setText(QCoreApplication.translate("MainWindow", u"Author", None))
         self.btn_exhibition.setText(QCoreApplication.translate("MainWindow", u"Exhibition", None))
-        self.btn_exihibition_work_of_art.setText(QCoreApplication.translate("MainWindow", u"EW", None))
+        self.btn_ew.setText(QCoreApplication.translate("MainWindow", u"EW", None))
         self.btn_institution.setText(QCoreApplication.translate("MainWindow", u"Institution", None))
         self.btn_loan.setText(QCoreApplication.translate("MainWindow", u"Loan", None))
         self.btn_location.setText(QCoreApplication.translate("MainWindow", u"Location", None))
@@ -1342,12 +1352,14 @@ class Ui_MainWindow(object):
         self.line_author_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.btn_apply_author.setText(QCoreApplication.translate("MainWindow", u"Apply", None))
         self.formularies.setTabText(self.formularies.indexOf(self.create_author), QCoreApplication.translate("MainWindow", u"Author", None))
-        self.line_exhibition_work_of_art_work_id.setText("")
-        self.line_exhibition_work_of_art_work_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Work of Art identification", None))
-        self.line_exhibition_work_of_art_exhibition_id.setText("")
-        self.line_exhibition_work_of_art_exhibition_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Exhibition identification", None))
-        self.btn_apply_exhibition_work_of_art.setText(QCoreApplication.translate("MainWindow", u"Apply", None))
-        self.formularies.setTabText(self.formularies.indexOf(self.create_exhibition_work_of_art), QCoreApplication.translate("MainWindow", u"EW", None))
+        self.line_ew_work_of_art_id.setText("")
+        self.line_ew_work_of_art_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Work of Art identification", None))
+        self.line_ew_exhibition_id.setText("")
+        self.line_ew_exhibition_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Exhibition identification", None))
+        self.line_new_ew_work_of_art_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"New Work of Art identification", None))
+        self.line_new_ew_exhibition_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"New Exhibition identification", None))
+        self.btn_apply_ew.setText(QCoreApplication.translate("MainWindow", u"Apply", None))
+        self.formularies.setTabText(self.formularies.indexOf(self.create_ew), QCoreApplication.translate("MainWindow", u"EW", None))
         self.line_guide_id.setText("")
         self.line_guide_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Identification", None))
         self.line_guide_name.setText("")
@@ -1460,16 +1472,16 @@ class Ui_MainWindow(object):
         self.btn_search_sculpture.setText(QCoreApplication.translate("MainWindow", u"Search", None))
         self.search_exhibition_start_date.setText("")
         self.search_exhibition_start_date.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Start Date", None))
-        self.search_exhibition_title.setText("")
-        self.search_exhibition_title.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Title", None))
+        self.search_exhibition_name.setText("")
+        self.search_exhibition_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Title", None))
         self.search_exhibition_end_date.setText("")
         self.search_exhibition_end_date.setPlaceholderText(QCoreApplication.translate("MainWindow", u"End Date", None))
         self.btn_search_exhibition.setText(QCoreApplication.translate("MainWindow", u"Search", None))
-        self.search_ew_work_of_art_id.setText("")
-        self.search_ew_work_of_art_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Work of Art Id", None))
-        self.search_ew_exhibition_id.setText("")
-        self.search_ew_exhibition_id.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Exhibition Id", None))
-        self.btn_search_ew.setText(QCoreApplication.translate("MainWindow", u"Search", None))
+        self.search_ew_work_of_art_name.setText("")
+        self.search_ew_work_of_art_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Work of Art Name", None))
+        self.search_ew_exhibition_name.setText("")
+        self.search_ew_exhibition_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Exhibition name", None))
+        self.btn_serach_ew.setText(QCoreApplication.translate("MainWindow", u"Search", None))
         self.search_institution_name.setText("")
         self.search_institution_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Name", None))
         self.search_institution_loan_date.setText("")

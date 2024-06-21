@@ -7,6 +7,12 @@
         "author_interface.py",
         "interfaces.py",
         "work_of_art_interface.py",
-        "location_interface.py"
+        "location_interface.py",
+        "exhibition_interface.py",
+        "painting_interface.py",
+        "sculpture_interface.py",
+        "ticket_interface.py",
+        "visitor_interface.py",
+        "exhibition_work_of_art_interface.py"
     ]
 }

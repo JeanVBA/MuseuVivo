@@ -5,8 +5,10 @@ from PySide6.QtCore import Slot
 
 def collect_form_data(main_window):
     data = {
-        "work_of_art_id": main_window.ui.line_exhibition_work_of_art_work_id.text(),
-        "exhibition_id": main_window.ui.line_exhibition_work_of_art_exhibition_id.text()
+        "work_of_art_id": main_window.ui.line_ew_work_of_art_id.text(),
+        "exhibition_id": main_window.ui.line_ew_exhibition_id.text(),
+        "new_work_of_art_id": main_window.ui.line_new_ew_work_of_art_id.text(),
+        "new_exhibition_id": main_window.ui.line_new_ew_exhibition_id.text()
     }
     return data
 
@@ -128,7 +130,7 @@ def apply_changes_ew(main_window):
     type_request.actions(main_window)
 
     # Conecte o botão "Apply" para determinar o método e executar a ação
-    main_window.ui.btn_apply_ew.clicked.connect(lambda: execute_request(main_window, type_request, data))
+    main_window.ui.btn_apply_exhibition_work_of_art.clicked.connect(lambda: execute_request(main_window, type_request, data))
 
 def execute_request(main_window, type_request, data):
     method = type_request.determine_request_method()
