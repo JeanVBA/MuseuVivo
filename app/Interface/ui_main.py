@@ -867,10 +867,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_37.addWidget(self.search_exhibition_start_date)
 
-        self.search_exhibition_name = QLineEdit(self.search_exhibition)
-        self.search_exhibition_name.setObjectName(u"search_exhibition_name")
+        self.search_exhibition_title = QLineEdit(self.search_exhibition)
+        self.search_exhibition_title.setObjectName(u"search_exhibition_title")
 
-        self.verticalLayout_37.addWidget(self.search_exhibition_name)
+        self.verticalLayout_37.addWidget(self.search_exhibition_title)
 
         self.search_exhibition_end_date = QLineEdit(self.search_exhibition)
         self.search_exhibition_end_date.setObjectName(u"search_exhibition_end_date")
@@ -1460,8 +1460,8 @@ class Ui_MainWindow(object):
         self.btn_search_sculpture.setText(QCoreApplication.translate("MainWindow", u"Search", None))
         self.search_exhibition_start_date.setText("")
         self.search_exhibition_start_date.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Start Date", None))
-        self.search_exhibition_name.setText("")
-        self.search_exhibition_name.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Title", None))
+        self.search_exhibition_title.setText("")
+        self.search_exhibition_title.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Title", None))
         self.search_exhibition_end_date.setText("")
         self.search_exhibition_end_date.setPlaceholderText(QCoreApplication.translate("MainWindow", u"End Date", None))
         self.btn_search_exhibition.setText(QCoreApplication.translate("MainWindow", u"Search", None))

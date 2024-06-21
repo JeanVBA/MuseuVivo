@@ -15,9 +15,9 @@ def get_by_work_by_name(work_by_name):
 
 
 def get_by_args():
-    work_by_name = request.args.get('work_by_name')
+    work_of_art_name = request.args.get('work_of_art_name')
     material = request.args.get('material')
     weight = request.args.get('weight')
 
-    items = sculpture_service.fetch_by_args(work_by_name, material, weight)
+    items = sculpture_service.fetch_by_args(work_of_art_name, material, weight)
     return jsonify(items)

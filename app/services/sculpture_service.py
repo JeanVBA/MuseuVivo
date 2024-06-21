@@ -89,3 +89,4 @@ class SculptureService(BaseService):
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]
+

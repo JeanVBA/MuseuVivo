@@ -26,10 +26,17 @@ class ExhibitionService(BaseService):
         }
         if exhibition_data['title'] is None:
             return self.error_response("Title cannot be null", 400)
-        if exhibition_data['start_date'] and datetime.fromisoformat(exhibition_data['start_date']) < datetime.now():
-            return self.error_response("The start date cannot be before the current date", 400)
-        if exhibition_data['end_date'] and datetime.fromisoformat(exhibition_data['end_date']) <= datetime.now():
-            return self.error_response("The end date cannot be current or before the current date", 400)
+        try:
+            # Tente analisar a data no formato ISO 8601
+            start_date = datetime.strptime(exhibition_data['start_date'], '%Y-%m-%d')
+            end_date = datetime.strptime(exhibition_data['end_date'], '%Y-%m-%d')
+            if start_date < datetime.now():
+                return self.error_response("The start date cannot be before the current date", 400)
+            if end_date <= datetime.now():
+                return self.error_response("The end date cannot be current or before the current date", 400)
+        except ValueError:
+            return self.error_response('Incorrect date format, should be YYYY-MM-DD', 400)
+       
         instance = self.repository.create(**exhibition_data)
         return self.to_dict(instance)
 
@@ -43,10 +50,16 @@ class ExhibitionService(BaseService):
         }
         if exhibition_data['title'] is None:
             return self.error_response("Title cannot be null", 400)
-        if exhibition_data['start_date'] and datetime.fromisoformat(exhibition_data['start_date']) < datetime.now():
-            return self.error_response("The start date cannot be before the current date", 400)
-        if exhibition_data['end_date'] and datetime.fromisoformat(exhibition_data['end_date']) <= datetime.now():
-            return self.error_response("The end date cannot be current or before the current date", 400)
+        try:
+            # Tente analisar a data no formato ISO 8601
+            start_date = datetime.strptime(exhibition_data['start_date'], '%Y-%m-%d')
+            end_date = datetime.strptime(exhibition_data['end_date'], '%Y-%m-%d')
+            if start_date < datetime.now():
+                return self.error_response("The start date cannot be before the current date", 400)
+            if end_date <= datetime.now():
+                return self.error_response("The end date cannot be current or before the current date", 400)
+        except ValueError:
+            return self.error_response('Incorrect date format, should be YYYY-MM-DD', 400)
         autor = self.repository.update(exhibition, **exhibition_data)
         return self.to_dict(autor)
 
