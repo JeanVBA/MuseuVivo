@@ -103,12 +103,14 @@ def work_of_art_to_dict(work_of_art):
         'type': work_of_art.type
     }
     if work_of_art.type == 'Sculpture' and work_of_art.sculptures:
+        sculpture = work_of_art.sculptures  # assuming one-to-one for simplicity
         work_of_art_dict['sculpture'] = {
-            'material': work_of_art.sculpture.material,
-            'weight': work_of_art.sculpture.weight
+            'material': sculpture.material,
+            'weight': sculpture.weight
         }
     elif work_of_art.type == 'Painting' and work_of_art.painting:
-        work_of_art_dict['painting'] = {
-            'technique': work_of_art.painting.technique
-        }
+            painting = work_of_art.painting  # assuming one-to-one for simplicity
+            work_of_art_dict['painting'] = {
+                'technique': painting.technique
+            }
     return work_of_art_dict

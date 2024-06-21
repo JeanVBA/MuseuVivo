@@ -1,6 +1,8 @@
 # ui_functions.py
 from PySide6.QtWidgets import QTableWidgetItem
+from PySide6.QtCore import Slot
 
+action = None
 
 def exibition(main_window):
     main_window.ui.btn_work_of_art.clicked.connect(lambda: main_window.ui.pages_events.setCurrentWidget(main_window.ui.page_work_of_art))
@@ -21,6 +23,8 @@ def exibition(main_window):
     main_window.ui.btn_create.clicked.connect(lambda: main_window.ui.pages_events.setCurrentWidget(main_window.ui.create_itens))
     main_window.ui.btn_update.clicked.connect(lambda: main_window.ui.pages_events.setCurrentWidget(main_window.ui.create_itens))
     main_window.ui.btn_delete.clicked.connect(lambda: main_window.ui.pages_events.setCurrentWidget(main_window.ui.create_itens))
+
+    
     show_and_hide_work_of_art(main_window)
     show_and_hide_painting(main_window)
     show_and_hide_sculpture(main_window)
@@ -45,7 +49,6 @@ def lines_visibility(show_lines, hide_lines):
             widget.hide()
             widget.clear()
     return toggle_visibility
-
 
 def show_and_hide_work_of_art(main_window):
     main_window.ui.btn_create.clicked.connect(lines_visibility([
@@ -259,6 +262,29 @@ def show_and_hide_visitor(main_window):
                                                                 main_window.ui.line_visitor_email,
                                                                 main_window.ui.line_visitor_phone]))
 
+class ActionButtonRequest():
+    def __init__(self):
+        self.action = None
+    
+    def actions(self, main_window):
+        main_window.ui.btn_create.clicked.connect(self.set_action_to_post)
+        main_window.ui.btn_update.clicked.connect(self.set_action_to_put)
+        main_window.ui.btn_delete.clicked.connect(self.set_action_to_delete)
+
+    @Slot()
+    def set_action_to_post(self):
+        self.action = "POST"
+    
+    @Slot()
+    def set_action_to_put(self):
+        self.action = "PUT"
+    
+    @Slot()
+    def set_action_to_delete(self):
+        self.action = "DELETE"
+
+    def determine_request_method(self):
+        return self.action
 
 def populate_table(table_widget, data):
     if not data:
