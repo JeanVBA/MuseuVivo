@@ -24,9 +24,9 @@ class TicketService(BaseService):
                 'name': ticket.visitor.name if ticket.visitor else None,
             },
             'guided_visit': {
-                'group': ticket.guided_visit.group if ticket.guided_visit else None,
+                'group': ticket.guided_visit.group if ticket.guided_visit else "Guided tour canceled",
                 'guide': {
-                    'name': ticket.guided_visit.guide.name if ticket.guided_visit.guide else None
+                    'name': ticket.guided_visit.guide.name if ticket.guided_visit else "No guide"
                 }
             }
         }

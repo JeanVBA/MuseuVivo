@@ -2,7 +2,9 @@ from decimal import Decimal
 
 from sqlalchemy import event
 
+from app import db
 from app.models.institution_model import Institution
+from app.models.loan_model import Loan
 from app.models.ticket_model import Ticket
 from app.models.work_of_art_model import WorkOfArt
 from app.services.base_service import BaseService
@@ -18,7 +20,7 @@ class LoanService(BaseService):
         return {
             'id': loan.id,
             'work_of_art': {
-                'id': loan.work_of_art.id,
+                'id': loan.work_of_art.id if loan.work_of_art.id else None,
                 'name': loan.work_of_art.name,
                 'description': loan.work_of_art.description,
                 'creation_date': loan.work_of_art.creation_date,
@@ -88,10 +90,11 @@ class LoanService(BaseService):
 
     def delete(self, id):
         try:
-            loan = self.repository.query.get(id)
+            loan = self.repository.get_by_id(id)
             self.repository.delete(loan)
+
         except Exception as e:
-            return self.error_response("Loan not found", 404)
+            return self.error_response(f"Loan not found", 404)
 
     def fetch_by_institution_name(self, institution_name):
         return [self.to_dict(instance) for instance in self.repository.get_by_institution_name(institution_name)]

@@ -1,5 +1,6 @@
 import requests
 from PySide6.QtWidgets import QTableWidgetItem
+from ui_actions import ActionState
 
 def collect_form_data(main_window):
     data = {
@@ -41,16 +42,6 @@ def populate_table_painting(table_widget, data):
         for col_idx, key in enumerate(columns):
             table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(row_data[key])))
 
-
-def determine_request_method(data):
-    if not data['id']:
-        return "POST"
-    elif data['technique'] and data['id']:
-        return "PUT"
-    elif data['id']:
-        return "DELETE"
-
-
 def initialize_painting(main_window):
     paintings = get_all_painting()
     populate_table_painting(main_window.ui.table_painting, paintings)
@@ -90,7 +81,8 @@ def get_args(path):
 
 def apply_changes_painting(main_window):
     data = collect_form_data(main_window)
-    method = determine_request_method(data)
+    action_state = ActionState()
+    method = action_state.get_action()
     label = main_window.ui.msg_error
 
     try:
@@ -105,9 +97,14 @@ def apply_changes_painting(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            label.setText(f"Success: {response.json()}")
+            if response.json() is None:
+                label.setText(f"Success: {response.status_code}")
+            else:
+                label.setText(f"Success: {response.json()}")
         else:
+            if response.json() is None:
+                label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 
     except requests.exceptions.RequestException as e:
-            label.setText(f"Request failed: {e}")
+        label.setText(f"Request failed: {e}")

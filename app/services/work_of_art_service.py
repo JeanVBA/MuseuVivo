@@ -95,6 +95,8 @@ class WorkOfArtService(BaseService):
 
 
 def work_of_art_to_dict(work_of_art):
+    if work_of_art is None:
+            return {}
     work_of_art_dict = {
         'name': work_of_art.name,
         'description': work_of_art.description,

@@ -1,6 +1,7 @@
 import requests
 from ui_functions import populate_table
 from PySide6.QtWidgets import QTableWidgetItem
+from ui_actions import ActionState
 
 def collect_form_data(main_window):
     data = {
@@ -57,15 +58,6 @@ def populate_table_visitor(table_widget, data):
                 table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(base_data.get(column, ""))))
             row_idx += 1
 
-def determine_request_method(data):
-    if not data['id']:
-        return "POST"
-    elif data['name'] and data['id']:
-        return "PUT"
-    elif data['id']:
-        return "DELETE"
-
-
 def initialize_visitor(main_window):
     visitors = get_all_visitor()
     populate_table_visitor(main_window.ui.table_visitor, visitors)
@@ -111,7 +103,8 @@ def get_args(path):
 
 def apply_changes_visitor(main_window):
     data = collect_form_data(main_window)
-    method = determine_request_method(data)
+    action_state = ActionState()
+    method = action_state.get_action()
     label = main_window.ui.msg_error
 
     try:
@@ -126,8 +119,13 @@ def apply_changes_visitor(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            label.setText(f"Success: {response.json()}")
+            if response.json() is None:
+                label.setText(f"Success: {response.status_code}")
+            else:
+                label.setText(f"Success: {response.json()}")
         else:
+            if response.json() is None:
+                label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 
     except requests.exceptions.RequestException as e:

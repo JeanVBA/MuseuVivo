@@ -8,4 +8,4 @@ class Exhibition(db.Model):
     description = db.Column(db.Text)
     start_date = db.Column(db.Date)
     end_date = db.Column(db.Date)
-    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='exhibition')
+    exhibition_works_of_art = db.relationship('ExhibitionWorkOfArt', back_populates='exhibition', cascade="all, delete-orphan")

@@ -11,7 +11,7 @@ class InstitutionService(BaseService):
         return {
             'id': institution.id,
             'name': institution.name,
-            'works_of_art': [work_of_art_to_dict(loan.work_of_art) for loan in institution.loans]
+            'works_of_art': [work_of_art_to_dict(loan.work_of_art) for loan in institution.loans] if institution.loans else []
         }
 
     def create(self, data):

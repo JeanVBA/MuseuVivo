@@ -1,9 +1,6 @@
-# This Python file uses the following encoding: utf-8
-
-# if __name__ == "__main__":
-#     pass
 import requests
 from ui_functions import populate_table
+from ui_actions import ActionState
 
 def collect_form_data(main_window):
     data = {
@@ -11,15 +8,6 @@ def collect_form_data(main_window):
         "name": main_window.ui.line_author_name.text()
     }
     return data
-
-def determine_request_method(data):
-    if not data['id']:
-        return "POST"
-    elif data['name'] and data['id']:
-        return "PUT"
-    elif data['id']:
-        return "DELETE"
-
 
 def initialize_author(main_window):
     authors = get_all_author()
@@ -60,7 +48,10 @@ def get_args(path):
 
 def apply_changes_author(main_window):
     data = collect_form_data(main_window)
-    method = determine_request_method(data)
+    action_state = ActionState()
+    method = action_state.get_action()
+
+
     label = main_window.ui.msg_error  # O QLabel onde a mensagem será exibida
 
     try:
@@ -75,9 +66,14 @@ def apply_changes_author(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            label.setText(f"Success: {response.json()}")
+            if not response.json():
+                label.setText(f"Success: {response.status_code}")
+            else:
+                label.setText(f"Success: {response.json()}")
         else:
+            if not response.json():
+                label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 
     except requests.exceptions.RequestException as e:
-            label.setText(f"Request failed: {e}")
+        label.setText(f"Request failed: {e}")

@@ -7,6 +7,11 @@ from painting_interface import initialize_painting, search_painting, apply_chang
 from sculpture_interface import initialize_sculpture, search_sculpture, apply_changes_sculpture
 from exhibition_interface import initialize_exhibition, search_exhibition, apply_changes_exhibition
 from exhibition_work_of_art_interface import initialize_ew, search_ew, apply_changes_ew
+from institution_interface import initialize_institution, search_institution, apply_changes_institution
+from loan_interface import initialize_loan, search_loan, apply_changes_loan
+from guide_interface import initialize_guide, search_guide, apply_changes_guide
+from security_interface import initialize_security, search_security, apply_changes_security
+from guided_visit_interface import initialize_guided_visits, search_guided_visits, apply_changes_guided_visits
 
 def searchs(main_window):
     main_window.ui.btn_search_author.clicked.connect(lambda: search_author(main_window))
@@ -17,7 +22,12 @@ def searchs(main_window):
     main_window.ui.btn_search_painting.clicked.connect(lambda: search_painting(main_window))
     main_window.ui.btn_search_sculpture.clicked.connect(lambda: search_sculpture(main_window))
     main_window.ui.btn_search_exhibition.clicked.connect(lambda: search_exhibition(main_window))
-    main_window.ui.btn_search_ew.clicked.connect(lambda: search_ew(main_window))
+    main_window.ui.btn_serach_ew.clicked.connect(lambda: search_ew(main_window))
+    main_window.ui.btn_search_institution.clicked.connect(lambda: search_institution(main_window))
+    main_window.ui.btn_search_loan.clicked.connect(lambda: search_loan(main_window))
+    main_window.ui.btn_search_guide.clicked.connect(lambda: search_guide(main_window))
+    main_window.ui.btn_search_security.clicked.connect(lambda: search_security(main_window))
+    main_window.ui.btn_search_gv.clicked.connect(lambda: search_guided_visits(main_window))
 
 def applys(main_window):
     main_window.ui.btn_apply_author.clicked.connect(lambda: apply_changes_author(main_window))
@@ -28,7 +38,12 @@ def applys(main_window):
     main_window.ui.btn_apply_painting.clicked.connect(lambda: apply_changes_painting(main_window))
     main_window.ui.btn_apply_sculpture.clicked.connect(lambda: apply_changes_sculpture(main_window))
     main_window.ui.btn_apply_exhibition.clicked.connect(lambda: apply_changes_exhibition(main_window))
-    main_window.ui.btn_apply_exhibition_work_of_art.clicked.connect(lambda: apply_changes_ew(main_window))
+    main_window.ui.btn_apply_ew.clicked.connect(lambda: apply_changes_ew(main_window))
+    main_window.ui.btn_apply_institution.clicked.connect(lambda: apply_changes_institution(main_window))
+    main_window.ui.btn_apply_loan.clicked.connect(lambda: apply_changes_loan(main_window))
+    main_window.ui.btn_apply_guide.clicked.connect(lambda: apply_changes_guide(main_window))
+    main_window.ui.btn_apply_security.clicked.connect(lambda: apply_changes_security(main_window))
+    main_window.ui.btn_apply_guided_visits.clicked.connect(lambda: apply_changes_guided_visits(main_window))
 
 def initializes(main_window):
     initialize_author(main_window)
@@ -40,3 +55,8 @@ def initializes(main_window):
     initialize_sculpture(main_window)
     initialize_exhibition(main_window)
     initialize_ew(main_window)
+    initialize_institution(main_window)
+    initialize_loan(main_window)
+    initialize_guide(main_window)
+    initialize_security(main_window)
+    initialize_guided_visits(main_window)

@@ -1,7 +1,6 @@
 import requests
 from PySide6.QtWidgets import QTableWidgetItem
-from ui_functions import ActionButtonRequest
-from PySide6.QtCore import Slot
+from ui_actions import ActionState
 
 def collect_form_data(main_window):
     data = {
@@ -13,76 +12,68 @@ def collect_form_data(main_window):
     return data
 
 
-def populate_table_ew(table_widget, data):
-    columns = ["exhibition_id", "exhibition_title", "work_of_art_id", "work_of_art_name"]
-    table_widget.setColumnCount(len(columns))
-    table_widget.setHorizontalHeaderLabels(columns)
-    table_widget.setRowCount(len(data))
+def setup_table_headers(table_widget, headers: list):
+    table_widget.setColumnCount(len(headers))
+    table_widget.setHorizontalHeaderLabels(headers)
 
-    for row_idx, item in enumerate(data):
-        for col_idx, key in enumerate(columns):
-            table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(item.get(key, ""))))
+def populate_table(table_widget, data: list):
+    table_widget.setRowCount(0)  # Limpa todas as linhas existentes
 
-def populate_table_ew_exhibition(table_widget, data):
-    columns = ["exhibition_id", "exhibition_title", "author", "creation_date", "description", "name", "technique", "type"]
-    table_widget.setColumnCount(len(columns))
-    table_widget.setHorizontalHeaderLabels(columns)
+    if not data:
+        return
 
-    row_idx = 0
-    for item in data:
-        exhibition_id = item.get("exhibition_id", "")
-        exhibition_title = item.get("exhibition_title", "")
-        works_of_art = item.get("works_of_art", [])
-        
-        for work in works_of_art:
-            table_widget.insertRow(row_idx)
-            row_data = {
-                "exhibition_id": exhibition_id,
-                "exhibition_title": exhibition_title,
-                "author": work.get("author", ""),
-                "creation_date": work.get("creation_date", ""),
-                "description": work.get("description", ""),
-                "name": work.get("name", ""),
-                "technique": work.get("painting", {}).get("technique", "") if work.get("type") == "Painting" else "",
-                "type": work.get("type", "")
-            }
+    # Determine the type of data by checking the keys of the first item
+    first_item = data[0]
 
-            for col_idx, key in enumerate(columns):
-                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(row_data[key])))
+    if "works_of_art" in first_item:
+        headers = ["Exhibition ID", "Exhibition Title", "Work of Art Name", "Author", "Creation Date", "Description", "Material", "Weight"]
+        setup_table_headers(table_widget, headers)
+        for entry in data:
+            for work_of_art in entry["works_of_art"]:
+                row_position = table_widget.rowCount()
+                table_widget.insertRow(row_position)
 
-            row_idx += 1
+                table_widget.setItem(row_position, 0, QTableWidgetItem(str(entry["exhibition_id"])))
+                table_widget.setItem(row_position, 1, QTableWidgetItem(entry["exhibition_title"]))
+                table_widget.setItem(row_position, 2, QTableWidgetItem(work_of_art["name"]))
+                table_widget.setItem(row_position, 3, QTableWidgetItem(work_of_art.get("author", "")))
+                table_widget.setItem(row_position, 4, QTableWidgetItem(work_of_art.get("creation_date", "")))
+                table_widget.setItem(row_position, 5, QTableWidgetItem(work_of_art.get("description", "")))
+                table_widget.setItem(row_position, 6, QTableWidgetItem(work_of_art["sculpture"].get("material", "")))
+                table_widget.setItem(row_position, 7, QTableWidgetItem(work_of_art["sculpture"].get("weight", "")))
 
-def populate_table_ew_work_of_art(table_widget, data):
-    columns = ["work_of_art_id", "work_of_art_name", "exhibition_title", "exhibition_description", "start_date", "end_date"]
-    table_widget.setColumnCount(len(columns))
-    table_widget.setHorizontalHeaderLabels(columns)
+    elif "exhibitions" in first_item:
+        headers = ["Work of Art ID", "Work of Art Name", "Exhibition Title", "Exhibition Description", "Exhibition Start Date", "Exhibition End Date"]
+        setup_table_headers(table_widget, headers)
+        for entry in data:
+            for exhibition in entry["exhibitions"]:
+                row_position = table_widget.rowCount()
+                table_widget.insertRow(row_position)
 
-    row_idx = 0
-    for item in data:
-        work_of_art_id = item.get("work_of_art_id", "")
-        work_of_art_name = item.get("work_of_art_name", "")
-        exhibitions = item.get("exhibitions", [])
-        
-        for exhibition in exhibitions:
-            table_widget.insertRow(row_idx)
-            row_data = {
-                "work_of_art_id": work_of_art_id,
-                "work_of_art_name": work_of_art_name,
-                "exhibition_title": exhibition.get("title", ""),
-                "exhibition_description": exhibition.get("description", ""),
-                "start_date": exhibition.get("start_date", ""),
-                "end_date": exhibition.get("end_date", "")
-            }
+                table_widget.setItem(row_position, 0, QTableWidgetItem(str(entry["work_of_art_id"])))
+                table_widget.setItem(row_position, 1, QTableWidgetItem(entry["work_of_art_name"]))
+                table_widget.setItem(row_position, 2, QTableWidgetItem(exhibition["title"]))
+                table_widget.setItem(row_position, 3, QTableWidgetItem(exhibition.get("description", "")))
+                table_widget.setItem(row_position, 4, QTableWidgetItem(exhibition.get("start_date", "")))
+                table_widget.setItem(row_position, 5, QTableWidgetItem(exhibition.get("end_date", "")))
 
-            for col_idx, key in enumerate(columns):
-                table_widget.setItem(row_idx, col_idx, QTableWidgetItem(str(row_data[key])))
+    elif "exhibition_id" in first_item:
+        headers = ["Exhibition ID", "Exhibition Title", "Work of Art ID", "Work of Art Name"]
+        setup_table_headers(table_widget, headers)
+        for entry in data:
+            row_position = table_widget.rowCount()
+            table_widget.insertRow(row_position)
 
-            row_idx += 1
+            table_widget.setItem(row_position, 0, QTableWidgetItem(str(entry["exhibition_id"])))
+            table_widget.setItem(row_position, 1, QTableWidgetItem(entry["exhibition_title"]))
+            table_widget.setItem(row_position, 2, QTableWidgetItem(str(entry["work_of_art_id"])))
+            table_widget.setItem(row_position, 3, QTableWidgetItem(entry["work_of_art_name"]))
+
 
 
 def initialize_ew(main_window):
     ews = get_all_ew()
-    populate_table_ew(main_window.ui.table_ew, ews)
+    populate_table(main_window.ui.table_ew, ews)
 
 def search_ew(main_window):
     work_of_art_id = main_window.ui.search_ew_work_of_art_id.text()
@@ -90,13 +81,13 @@ def search_ew(main_window):
 
     if work_of_art_id:
         data = get_ew_work_of_art_id(f"/{work_of_art_id}") 
-        populate_table_ew_work_of_art(main_window.ui.table_ew, data)
-    if exhibition_id:
+        populate_table(main_window.ui.table_ew, data)
+    elif exhibition_id:
         data = get_ew_exhibition_id(f"/{exhibition_id}")
-        populate_table_ew_exhibition(main_window.ui.table_ew, data)
-    if work_of_art_id is None and exhibition_id is None:
+        populate_table(main_window.ui.table_ew, data)
+    else:
        data = get_all_ew()
-       populate_table_ew(main_window.ui.table_ew, data)
+       populate_table(main_window.ui.table_ew, data)
 
 
 
@@ -126,14 +117,8 @@ def get_ew_exhibition_id(path):
 
 def apply_changes_ew(main_window):
     data = collect_form_data(main_window)
-    type_request = ActionButtonRequest()
-    type_request.actions(main_window)
-
-    # Conecte o botão "Apply" para determinar o método e executar a ação
-    main_window.ui.btn_apply_exhibition_work_of_art.clicked.connect(lambda: execute_request(main_window, type_request, data))
-
-def execute_request(main_window, type_request, data):
-    method = type_request.determine_request_method()
+    action_state = ActionState()
+    method = action_state.get_action()
     print(method)  # Verifica se o método está correto
     label = main_window.ui.msg_error
 
@@ -143,7 +128,11 @@ def execute_request(main_window, type_request, data):
             response = requests.post(url, json=data)
         elif method == "PUT":
             url = f"http://127.0.0.1:5000/exhibition_work_of_art/work_of_art_id/{data['work_of_art_id']}/exhibition_id/{data['exhibition_id']}"
-            response = requests.put(url, json=data)
+            new_data = {
+                "work_of_art_id": data['new_work_of_art_id'],
+                "exhibition_id": data['new_exhibition_id']
+            }
+            response = requests.put(url, json=new_data)
         elif method == "DELETE":
             url = f"http://127.0.0.1:5000/exhibition_work_of_art/work_of_art_id/{data['work_of_art_id']}/exhibition_id/{data['exhibition_id']}"
             response = requests.delete(url)
@@ -154,6 +143,8 @@ def execute_request(main_window, type_request, data):
             else:
                 label.setText(f"Success: {response.json()}")
         else:
+            if response.json() is None:
+                label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 
     except requests.exceptions.RequestException as e:
