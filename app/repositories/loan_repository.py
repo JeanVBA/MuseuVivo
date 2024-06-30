@@ -18,6 +18,7 @@ class LoanRepository(BaseRepository):
     def update_loan(self, loan):
         db.session.add(loan)
         db.session.commit()
+
     def get_by_args(self, return_date=None, loan_date=None, work_of_art_name=None, institution_name=None):
         query = Loan.query
         if return_date:

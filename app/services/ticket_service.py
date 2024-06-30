@@ -24,9 +24,9 @@ class TicketService(BaseService):
                 'name': ticket.visitor.name if ticket.visitor else None,
             },
             'guided_visit': {
-                'group': ticket.guided_visit.group if ticket.guided_visit else None,
+                'group': ticket.guided_visit.group if ticket.guided_visit else "Guided tour canceled",
                 'guide': {
-                    'name': ticket.guided_visit.guide.name if ticket.guided_visit.guide else None
+                    'name': ticket.guided_visit.guide.name if ticket.guided_visit else "No guide"
                 }
             }
         }
@@ -107,8 +107,8 @@ class TicketService(BaseService):
 
     def delete(self, ticket_id):
         try:
-            instance = self.repository.query.get(ticket_id)
-            return self.to_dict(instance)
+            ticket = self.repository.get_by_id(ticket_id)
+            self.repository.delete(ticket)
         except Exception as e:
             return self.error_response("Ticket not found", 404)
 

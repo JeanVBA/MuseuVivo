@@ -47,3 +47,9 @@ class LocationService(BaseService):
             return self.to_dict(location)
         except Exception as e:
             return self.error_response("Location not found", 404)
+
+    def fetch_by_args(self, location_name=None):
+        results = self.repository.get_by_args(location_name)
+        if results is None:
+            return self.error_response("Not found and/or conflicting information", 404)
+        return [self.to_dict(result) for result in results]

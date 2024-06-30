@@ -5,12 +5,12 @@
 	##python -m venv venv (lembre-se de fazer na pasta do projeto)
 #Ativar o ambiente virtual:
 	##venv\Scripts\activate (windows)
-	##source venv/bin/activate (Linux ou Mac)
+	##source venv/bin/activate (Linux ou MAC)
 #Instalar Flask e outros:
 	##pip install flask flask_sqlalchemy flask_migrate pyodbc
- 	##pip install notebook
-    ##pip install requests
-#Rodar a aplicação primeira vez:
-	##python.exe -m pip install --upgrade pip
-#Ativar o servidor:
-	##flask run
+	##pip install mysql-connector-python ou pip install psycopg2 - Bancos de dados
+	##pip install python-dotenv
+	##pip install pyside6 requests openpyxl - Interface
+#Rodar funcionalidades:
+	##flask run - API
+	##cd app\interface - python main.py - Interface

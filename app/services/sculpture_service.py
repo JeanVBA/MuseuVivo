@@ -77,7 +77,7 @@ class SculptureService(BaseService):
     def delete(self, sculpture_id):
         try:
             instance = self.repository.query.get(sculpture_id)
-            return self.to_dict(instance)
+            self.repository.delete(instance)
         except Exception as e:
             return self.error_response("Sculpture not found", 404)
 
@@ -89,3 +89,4 @@ class SculptureService(BaseService):
         if results is None:
             return self.error_response("Not found and/or conflicting information", 404)
         return [self.to_dict(result) for result in results]
+
