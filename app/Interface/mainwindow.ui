@@ -17,6 +17,12 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QFrame" name="left_container">
+      <property name="minimumSize">
+       <size>
+        <width>200</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="maximumSize">
        <size>
         <width>200</width>
@@ -61,15 +67,15 @@
           <item>
            <widget class="QToolBox" name="Selections">
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="buttons">
              <property name="geometry">
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>146</width>
-               <height>460</height>
+               <width>143</width>
+               <height>502</height>
               </rect>
              </property>
              <attribute name="label">
@@ -182,7 +188,7 @@
                <x>0</x>
                <y>0</y>
                <width>160</width>
-               <height>434</height>
+               <height>428</height>
               </rect>
              </property>
              <attribute name="label">

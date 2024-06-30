@@ -113,12 +113,12 @@ def apply_changes_institution(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            if response is None:
+            if method == "DELETE":
                 label.setText(f"Success: {response.status_code}")
             else:
                 label.setText(f"Success: {response.json()}")
         else:
-            if response is None:
+            if not response.json():
                 label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 

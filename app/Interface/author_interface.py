@@ -66,7 +66,7 @@ def apply_changes_author(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            if not response.json():
+            if method == "DELETE":
                 label.setText(f"Success: {response.status_code}")
             else:
                 label.setText(f"Success: {response.json()}")

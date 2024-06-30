@@ -26,7 +26,7 @@ def populate_table(table_widget, data: list):
     first_item = data[0]
 
     if "works_of_art" in first_item:
-        headers = ["Exhibition ID", "Exhibition Title", "Work of Art Name", "Author", "Creation Date", "Description", "Material", "Weight"]
+        headers = ["Exhibition ID", "Exhibition Title", "Work of Art Name", "Author", "Creation Date", "Description"]
         setup_table_headers(table_widget, headers)
         for entry in data:
             for work_of_art in entry["works_of_art"]:
@@ -39,8 +39,6 @@ def populate_table(table_widget, data: list):
                 table_widget.setItem(row_position, 3, QTableWidgetItem(work_of_art.get("author", "")))
                 table_widget.setItem(row_position, 4, QTableWidgetItem(work_of_art.get("creation_date", "")))
                 table_widget.setItem(row_position, 5, QTableWidgetItem(work_of_art.get("description", "")))
-                table_widget.setItem(row_position, 6, QTableWidgetItem(work_of_art["sculpture"].get("material", "")))
-                table_widget.setItem(row_position, 7, QTableWidgetItem(work_of_art["sculpture"].get("weight", "")))
 
     elif "exhibitions" in first_item:
         headers = ["Work of Art ID", "Work of Art Name", "Exhibition Title", "Exhibition Description", "Exhibition Start Date", "Exhibition End Date"]
@@ -138,12 +136,12 @@ def apply_changes_ew(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            if response.json() is None:
+            if method == "DELETE":
                 label.setText(f"Success: {response.status_code}")
             else:
                 label.setText(f"Success: {response.json()}")
         else:
-            if response.json() is None:
+            if not response.json():
                 label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 

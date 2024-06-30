@@ -17,6 +17,8 @@ def collect_form_data(main_window):
 
 
 def populate_table_work_of_art(table_widget, data):
+    table_widget.clear()
+    table_widget.setRowCount(0)
     # Define all possible columns
     columns = ["author", "creation_date", "description", "id", "location", "name", "type", "material", "weight",
                "technique"]
@@ -112,12 +114,12 @@ def apply_changes_work_of_art(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            if response.json() is None:
+            if method == "DELETE":
                 label.setText(f"Success: {response.status_code}")
             else:
                 label.setText(f"Success: {response.json()}")
         else:
-            if response.json() is None:
+            if not response.json():
                 label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 

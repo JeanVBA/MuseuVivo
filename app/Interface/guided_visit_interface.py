@@ -17,8 +17,8 @@ def setup_table_headers(table_widget, headers: list):
     table_widget.setHorizontalHeaderLabels(headers)
 
 def populate_table(table_widget, data: list):
-    table_widget.setRowCount(0)  # Clear existing rows
     table_widget.clear()
+    table_widget.setRowCount(0)
 
     if not data:
         return
@@ -106,12 +106,12 @@ def apply_changes_guided_visits(main_window):
             response = requests.delete(url)
 
         if response.status_code in [200, 201, 204]:
-            if response.json():
+            if method == "DELETE":
                 label.setText(f"Success: {response.status_code}")
             else:
                 label.setText(f"Success: {response.json()}")
         else:
-            if response.json() is None:
+            if not response.json():
                 label.setText(f"Error: {response.status_code}")
             label.setText(f"Error: {response.status_code} - {response.text}")
 

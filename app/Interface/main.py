@@ -17,6 +17,7 @@ class MainWindow(QMainWindow):
         initializes(self)
         applys(self)
         searchs(self)
+        re_initialize(self)
 
 
 if __name__ == "__main__":
